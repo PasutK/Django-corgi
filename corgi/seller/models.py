@@ -39,13 +39,13 @@ class Seller(models.Model):
     contact_person_last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=12, validators=[validate_buyer_phone])
     address = models.CharField(max_length=300)
-    store_picture = models.ImageField(upload_to="uploads/store/")
-    qrcode_picture = models.ImageField(upload_to="uploads/qrcode/")
+    store_picture = models.ImageField(upload_to="seller/media/store/")
+    qrcode_picture = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
 
 class SellerCategory(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='media')
+    image = models.ImageField(upload_to='seller/media/category')
     def __str__(self):
         return self.name
     def img_preview(self, obj):
@@ -56,7 +56,7 @@ class SellerProduct(models.Model):
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     category = models.ForeignKey(SellerCategory, on_delete=models.CASCADE, default=1)
     description = models.CharField(max_length=2500)
-    image = models.ImageField(upload_to="uploads/products/")
+    image = models.ImageField(upload_to="seller/media/product")
     status = models.BooleanField(default=True)
     last_update = models.DateTimeField(auto_now=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default=1)
