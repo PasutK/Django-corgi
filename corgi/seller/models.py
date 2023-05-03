@@ -43,4 +43,20 @@ class Seller(models.Model):
     qrcode_picture = models.ImageField(upload_to="uploads/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
 
-# class SellerProduct(models.Model):
+class SellerCategory(models.Model):
+    name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='media')
+    def __str__(self):
+        return self.name
+    def img_preview(self, obj):
+        return format_html('<img src="{}" width="300"/>'.format(obj.image.url))
+
+class SellerProduct(models.Model):
+    name = models.CharField(max_length=60)
+    price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+    category = models.ForeignKey(SellerCategory, on_delete=models.CASCADE, default=1)
+    description = models.CharField(max_length=2500)
+    image = models.ImageField(upload_to="uploads/products/")
+    status = models.BooleanField(default=True)
+    last_update = models.DateTimeField(auto_now=True)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default=1)
