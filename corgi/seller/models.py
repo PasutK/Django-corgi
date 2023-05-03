@@ -42,3 +42,5 @@ class Seller(models.Model):
     store_picture = models.ImageField(upload_to="uploads/store/")
     qrcode_picture = models.ImageField(upload_to="uploads/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
+
+# class SellerProduct(models.Model):
