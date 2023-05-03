@@ -281,3 +281,8 @@ h1.box{
     div.file-upload {
       margin-bottom: 5px;
     }
+
+    .img-fluid {
+      width: 100%;
+      height: auto;
+    }

@@ -12,6 +12,7 @@
             <h1 class='box'>Registration</h1>
             {% csrf_token %}
             {{ form.as_p }}
+            <div class='form-group'>
             <label>email</label>
             <input type="text" name="email" placeholder="" required>
             <label>Password</label>
@@ -39,6 +40,7 @@
                 <p></p>
             </div>
             <button submit type="submit">Register</button>
+        </div>
         </form>
     </div>
 </body>

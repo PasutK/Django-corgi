@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.urls import path,include
-from .views import Homepage, Register
+from . import views
+from .views import Slogin, register_seller
 
 urlpatterns = [
-    path('', Homepage.as_view(),name='seller-homepage'),
-    path('register/', Register.as_view(),name='seller-register'),
+    path('', views.Slogin,name='seller-homepage'),
+    path('register/', views.register_seller,name='seller-register'),
 ]
