@@ -35,12 +35,12 @@ class Seller(models.Model):
     email = models.EmailField(unique=True, validators=[validate_buyer_email])
     password = models.CharField(max_length=100)
     store_name = models.CharField(max_length=50)
-    contact_person_first_name = models.CharField(max_length=50)
-    contact_person_last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=12, validators=[validate_buyer_phone])
     address = models.CharField(max_length=300)
-    store_picture = models.ImageField(upload_to="seller/media/store/")
-    qrcode_picture = models.ImageField(upload_to="seller/media/qrcode/")
+    store_image = models.ImageField(upload_to="seller/media/store/")
+    qrcode_image = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
 
 class SellerCategory(models.Model):

@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'media/logo.jpg'%}" />
+
+</head>
+<body>
+    <div class="container">
+        <form method="post">
+            <h1 class='box'>Registration</h1>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <label>email</label>
+            <input type="text" name="email" placeholder="" required>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="" required>
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" placeholder="" required>
+            <label>Store Name</label>
+            <input type="text" name="store_name" placeholder="" required>
+            <label>First Name</label>
+            <input type="text" name="first_name" placeholder="" required>
+            <label>Last Name</label>
+            <input type="text" name="last_name" placeholder="" required>
+            <label>Tel.</label>
+            <input type="text" name="phone" placeholder="0xxxxxxxxx (only numbers)" required>
+            <label>Address</label>
+            <input type="text" name="address" placeholder="" required>
+
+            <div class='file-upload'>
+            <p><label>Store Picture</label></p>
+            <input required type='file' name='store_image'>
+            </div>
+            <div class='file-upload'>
+                <p><label>QR Code</label></p>
+                <input required type='file' name='qrcode_image'>
+                <p></p>
+            </div>
+            <button submit type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>
