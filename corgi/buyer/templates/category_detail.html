@@ -26,5 +26,32 @@
     </div>
   </div>
   {% endfor %}
+  {% for product in products %}
+  <h1>{{ product.category.name }}</h1>
+    <ul>
+      <li>
+        <h2>{{ product.name }}</h2>
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300" height="300">
+        {% else %}
+          <p>No image available</p>
+        {% endif %}
+        {% if product.category %}
+          <p>Category: {{ product.category.name }}</p>
+        {% else %}
+          <p>No category available</p>
+        {% endif %}
+        <p>Price: {{ product.price }}</p>
+        {% if product.seller %}
+          <p>store_name: {{ product.seller.store_name }}</p>
+          <p>address: {{ product.seller.address }}</p>
+        {% else %}
+          <p>No seller information available</p>
+        {% endif %}
+      </li>
+    </ul>
+  {% empty %}
+    <h1>No products found.</h1>
+    {% endfor %}
   </ul>
 {% endblock %}

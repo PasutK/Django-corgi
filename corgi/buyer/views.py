@@ -20,15 +20,16 @@ def category_list(request):
     context = {'categories': categories}
     return render(request, 'category_list.html', {'categories': categories})
 
-def product_category(request, pk):
-    products = SellerProduct.objects.filter(category__pk=pk)
+def category_detail(request, category):
+    products = SellerProduct.objects.filter(category=category)
     context = {'products': products}
-    return render(request, 'product_list.html', context)
+    return render(request, 'category_detail.html', context)
 
-def product_detail(request, pd):
-    products = SellerProduct.objects.filter(product__pd=pd)
+def category_detail(request, name):
+    products = SellerProduct.objects.filter(name=name)
     context = {'products': products}
     return render(request, 'product_detail.html', context)
+
 
 
 
