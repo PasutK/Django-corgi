@@ -16,13 +16,15 @@
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
-          </li>
           {% block nav%}
           {% endblock %}
         </ul>
     </div>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    {% block right-nav %}
+    {% endblock %}
+</ul>
+
     </nav>
 </head>
 <body>
