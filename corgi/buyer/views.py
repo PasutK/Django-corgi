@@ -21,9 +21,16 @@ def category_list(request):
     return render(request, 'category_list.html', {'categories': categories})
 
 def product_category(request, pk):
-    product = SellerProduct.get_object_or_404(Category, pk=pk)
-    context = {'product': product}
+    products = SellerProduct.objects.filter(category__pk=pk)
+    context = {'products': products}
+    return render(request, 'product_list.html', context)
+
+def product_detail(request, pd):
+    products = SellerProduct.objects.filter(product__pd=pd)
+    context = {'products': products}
     return render(request, 'product_detail.html', context)
+
+
 
 
 
