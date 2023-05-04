@@ -31,6 +31,6 @@ def product_detail(request, category, name):
     return render(request, 'product_detail.html', context)
 
 def store_detail(request, store_name):
-    store = Seller.objects.filter(store_name=store_name.replace('_', ' '))
-    context = {'store': store}
+    stores = Seller.objects.filter(store_name=store_name.replace('_', ' '))
+    context = {'stores': stores}
     return render(request, 'store_detail.html', context)

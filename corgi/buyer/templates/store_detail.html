@@ -15,29 +15,16 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ store.store_name }}</h1>
-  <img src="{{ store.store.url }}" alt="{{ store.store_name }}">
-  <p>Phone: {{ store.phone }}</p>
-  <p>Address: {{ store.address }}</p>
-  <h2>Products:</h2>
-  <ul>
-  {% for product in store.sellerproduct_set.all %}
-    <li>
-      <h3>{{ Seller.store_name }}</h3>
-      {% if product.image %}
-        <img src="{{ store.store.url }}" alt="{{ store.store_name }}" width="300" height="300">
-      {% else %}
-        <p>No image available</p>
-      {% endif %}
-      {% if product.category %}
-        <p>Category: {{ product.category.name }}</p>
-      {% else %}
-        <p>No category available</p>
-      {% endif %}
-      <p>Price: {{ product.price }}</p>
-    </li>
+{% for store in stores %}
+    <ul>
+        <li>
+            <h1>{{ store.store_name }}</h1>
+            <img src="{{ store.store_image.url }}" alt="{{ store.store_name }}", width="1000" height="600">
+            <p>Phone: {{ store.phone }}</p>
+            <p>Address: {{ store.address }}</p>
+        </li>
+    </ul>
   {% empty %}
-    <h3>No products found.</h3>
+    <h2>No products found.</h2>
   {% endfor %}
-  </ul>
 {% endblock %}
