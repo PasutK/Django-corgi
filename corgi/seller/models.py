@@ -42,6 +42,9 @@ class Seller(models.Model):
     store_image = models.ImageField(upload_to="seller/media/store/")
     qrcode_image = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
+    
+    def register(self):
+        self.save()
 
 class SellerCategory(models.Model):
     name = models.CharField(max_length=50)
