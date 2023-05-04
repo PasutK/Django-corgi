@@ -11,10 +11,11 @@ urlpatterns = [
     path('login',views.Blogin,name="login"),
     path('categories/', views.category_list, name='category_list'),
     path('categories/<int:category>/', views.category_detail, name='category_detail'),
-    path('categories/<str:category>/<str:name>/', views.product_detail, name='product_detail'),
+    path('categories/<int:category>/<str:name>/', views.product_detail, name='product_detail'),
+    path('<str:store_name>/', views.store_detail, name='store_detail'),
 ]
 
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 

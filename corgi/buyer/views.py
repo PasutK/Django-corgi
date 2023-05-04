@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
-from seller.models import SellerCategory, SellerProduct
+from seller.models import SellerCategory, SellerProduct, Seller
 
 # Create your views here.
 def Blogin(request):
@@ -30,11 +30,7 @@ def product_detail(request, category, name):
     context = {'products': products}
     return render(request, 'product_detail.html', context)
 
-
-
-
-
-
-
-
-
+def store_detail(request, store_name):
+    store = Seller.objects.filter(store_name=store_name.replace('_', ' '))
+    context = {'store': store}
+    return render(request, 'store_detail.html', context)
