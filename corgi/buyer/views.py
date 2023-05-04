@@ -23,7 +23,7 @@ def category_list(request):
 def product_category(request, pk):
     products = SellerProduct.objects.filter(category__pk=pk)
     context = {'products': products}
-    return render(request, 'product_list.html', context)
+    return render(request, 'category_detail.html', context)
 
 def product_detail(request, pd):
     products = SellerProduct.objects.filter(product__pd=pd)
