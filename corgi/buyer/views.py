@@ -3,10 +3,16 @@ from .models import Category, Product
 
 # Create your views here.
 def Blogin(request):
-    pass
+    return render(request, "Blogin.html",{})
+
+def Bregister(request):
+    return render(request, "Bregister.html",{})
 
 def Blogout(request):
     pass
+
+def Bhomepage(request):
+    return render(request, "store.html",{})
 
 def category_list(request):
     categories = Category.objects.all()

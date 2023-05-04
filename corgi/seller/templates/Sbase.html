@@ -1,6 +1,6 @@
 {% extends "homepage.html"%}
+
 <!DOCTYPE html>
-{% if user.is_authenticated %}
 <html>
     {% block nav%}
     <a class="nav-link" aria-current="page" href="" style="color: #595959;"> Profile </a>
@@ -11,8 +11,5 @@
     
     
     {% endblock %}
-    
-{% else %}
-<meta http-equiv="Refresh" content="0; url='login'" />
-{% endif %}
+ 
 </html>
