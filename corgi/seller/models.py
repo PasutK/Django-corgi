@@ -64,3 +64,5 @@ class SellerProduct(models.Model):
     status = models.BooleanField(default=True)
     last_update = models.DateTimeField(auto_now=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default=1)
+    def __str__(self):
+        return self.name

@@ -25,10 +25,13 @@ def category_detail(request, category):
     context = {'products': products}
     return render(request, 'category_detail.html', context)
 
-def category_detail(request, name):
-    products = SellerProduct.objects.filter(name=name)
+def product_detail(request, category, name):
+    products = SellerProduct.objects.filter(category=category, name=name.replace('_', ' '))
     context = {'products': products}
     return render(request, 'product_detail.html', context)
+
+
+
 
 
 
