@@ -10,7 +10,7 @@ urlpatterns = [
     path('',views.Bhomepage,name="login"),
     path('login',views.Blogin,name="login"),
     path('categories/', views.category_list, name='category_list'),
-    path('categories/<str:category>/', views.category_detail, name='category_detail'),
+    path('categories/<int:category>/', views.category_detail, name='category_detail'),
     path('categories/<str:category>/<str:name>/', views.product_detail, name='product_detail'),
 ]
 
