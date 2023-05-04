@@ -1,0 +1,7 @@
+{% block content %}
+  <h1>{{ product.name }}</h1>
+  <p>Shop: {{ product.shop.name }}</p>
+  <p>Location: {{ product.shop.location }}</p>
+  <p>Price: {{ product.price }}</p>
+  <a href="{% url 'shop_detail' pk=product.shop.pk %}">Go to shop detail</a>
+{% endblock %}
