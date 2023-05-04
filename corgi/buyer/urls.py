@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path,include
 from . import views
-from .views import Blogin, Blogout, category_list, category_detail
+from .views import Blogin, Blogout, category_list, product_category
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -10,8 +10,7 @@ urlpatterns = [
     path('',views.Bhomepage,name="login"),
     path('login',views.Blogin,name="login"),
     path('categories/', views.category_list, name='category_list'),
-    path('categories/<int:pk>/', category_detail, name='category_detail'),
-    path('products/<int:pk>/', views.product_detail, name='product_detail'),
+    path('categories/<int:pk>/', product_category, name='category_detail'),
 ]
 
 # if settings.DEBUG:
