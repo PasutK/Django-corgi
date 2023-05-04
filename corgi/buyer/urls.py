@@ -5,9 +5,9 @@ from .views import Blogin, Blogout, category_list, category_detail
 from django.conf import settings
 from django.conf.urls.static import static
 
-app_name = 'buyer'
 
 urlpatterns = [
+    path('',views.Bhomepage,name="login"),
     path('login',views.Blogin,name="login"),
     path('categories/', views.category_list, name='category_list'),
     path('categories/<int:pk>/', category_detail, name='category_detail'),

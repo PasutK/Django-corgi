@@ -31,7 +31,7 @@ def register_seller(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, "Register complete")
-    return render(request, 'Sregister.html', {})
+    return render(request, 'Sregister.html', {'form':form})
 
 def logout_seller(request):
     return render(request, 'Slogout.html', {})
