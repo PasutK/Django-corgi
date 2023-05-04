@@ -15,13 +15,19 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Categories</h1>
+  <h1 style="font-size:50px; padding: 20px; margin-left:10px;">Categories</h1>
   <ul>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for category in categories %}
-    <li>
-      <h2>{{ category.name }}</h2>
-      <img src="{{ category.image.url }}" alt="{{ category.name }}" width="300" height="300">
-    </li>
-  {% endfor %}
+      <div class="col">
+        <div class="card" style="background-color:#f8bc63;" >
+          <img class="card-img-top" src="{{ category.image.url }}" alt="{{ category.name }}" width="200" height="700">
+            <div class="card-body">
+            <h1 class="card-title" style='font-size:40px;'>{{ category.name }}</h2>
+            </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </ul>
 {% endblock %}

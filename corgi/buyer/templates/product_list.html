@@ -1,0 +1,32 @@
+{% extends "homepage.html" %}
+{% block nav %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="categories" style="color: #595959";>Categories</a>
+</li>
+{% endblock %}
+
+{% block right-nav %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/login" style="color: #595959;";>login</a>
+</li>
+{% endblock %}
+{% block content %}
+{% for product in products %}
+  <h1>{{ product.category.name }}</h1>
+    <ul>
+      <li>
+        <h2>{{ product.name }}</h2>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300" height="300">
+        <p>Category: {{ product.category.name }}</p>
+        <p>Price: {{ product.price }}</p>
+        <p>store_name: {{ product.seller.store_name }}</p>
+        <p>address: {{ product.seller.address }}</p>
+      </li>
+    </ul>
+  {% empty %}
+    <h1>No products found.</h1>
+  {% endfor %}
+{% endblock %}
