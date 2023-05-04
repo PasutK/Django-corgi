@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Categories</h1>
+  <ul>
+  {% for category in categories %}
+    <li>
+      <h2>{{ category.name }}</h2>
+      <img src="{{ category.image.url }}" alt="{{ category.name }}">
+    </li>
+  {% endfor %}
+  </ul>
+{% endblock %}
