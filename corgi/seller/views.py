@@ -35,3 +35,6 @@ def register_seller(request):
 
 def logout_seller(request):
     return render(request, 'Slogout.html', {})
+
+def sbase(request):
+    return render(request, "Sbase.html", {})
