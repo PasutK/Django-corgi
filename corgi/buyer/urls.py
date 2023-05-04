@@ -13,6 +13,7 @@ urlpatterns = [
     path('categories/<int:category>/', views.category_detail, name='category_detail'),
     path('categories/<int:category>/<str:name>/', views.product_detail, name='product_detail'),
     path('<str:store_name>/', views.store_detail, name='store_detail'),
+    path('cart/', views.cart, name='cart'),
 ]
 
 if settings.DEBUG:

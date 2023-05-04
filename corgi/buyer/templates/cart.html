@@ -1,0 +1,40 @@
+<!-- {% extends "homepage.html" %}
+
+{% block nav %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="categories" style="color: #595959";>Categories</a>
+</li>
+{% endblock %}
+
+{% block right-nav %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/login" style="color: #595959;";>login</a>
+</li>
+{% endblock %} -->
+
+{% block content %}
+    <!-- <h1>Shopping Cart</h1>
+    {% if carts %}
+    <ul>
+        {% for cart in carts %}
+        <li>
+            <h2>{{ cart.name }}</h2>
+            <img src="{{ cart.image.url }}" alt="{{ cart.name }}" width="750" height="450">
+            <p>Quantity: {{ cart.quantity }}</p>
+            <p>Price: ${{ cart.price }}</p>
+            <p>Total Price: ${{ cart.quantity|mul:cart.price }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    <h2>Total: ${{ carts|aggregate(sum_price=Sum(F('quantity')*F('price')))['sum_price'] }}</h2>
+    <form method="POST" action="{% url 'create_transaction' %}">
+        {% csrf_token %}
+        <button type="submit">Buy</button>
+    </form>
+    {% else %}
+    <h2>Your cart is empty.</h2>
+    {% endif %} -->
+{% endblock %}
