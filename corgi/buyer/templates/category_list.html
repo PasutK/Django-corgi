@@ -4,7 +4,7 @@
   {% for category in categories %}
     <li>
       <h2>{{ category.name }}</h2>
-      <img src="{{ category.image.url }}" alt="{{ category.name }}">
+      <img src="{{ category.image.url }}" alt="{{ category.name }}" width="300" height="300">
     </li>
   {% endfor %}
   </ul>
