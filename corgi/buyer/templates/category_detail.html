@@ -1,0 +1,13 @@
+{% block content %}
+  <h1>{{ category.name }}</h1>
+  <ul>
+  {% for product in products %}
+    <li>
+      <h2>{{ product.name }}</h2>
+      <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      <p>Price: {{ product.price }}</p>
+      <p>Location: {{ product.shop.location }}</p>
+    </li>
+  {% endfor %}
+  </ul>
+{% endblock %}
