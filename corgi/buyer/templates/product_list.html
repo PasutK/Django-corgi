@@ -1,3 +1,4 @@
+{% extends "homepage.html" %}
 {% block content %}
 {% for product in products %}
   <h1>{{ product.category.name }}</h1>
@@ -12,6 +13,6 @@
       </li>
     </ul>
   {% empty %}
-    <li>No products found.</li>
+    <h1>No products found.</h1>
   {% endfor %}
 {% endblock %}
