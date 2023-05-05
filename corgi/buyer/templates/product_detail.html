@@ -14,6 +14,7 @@
 </li>
 {% endblock %}
 {% block content %}
+
 {% for product in products %}
   {% comment %} <h1>{{ product.category.name }}</h1> {% endcomment %}
       <div class="card mb-3" style="border:0px;">
@@ -33,11 +34,36 @@
               </div>
                 <div class="card-footer">
                   <p class="card-text">
-                  <button type="add" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Add to Cart</button>
-                  <button type="buy" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Buy</button>
-                  <button type="link" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Go to Shop</button>
+                      
+                      <button type="add" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Add to Cart</button>
+                      <!-- <button type="buy" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Buy</button> -->
+                      <!-- <a href="{% url 'cart'  %}" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Buy</a> -->
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Launch static backdrop modal
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <img class="img-fluid rounded-start" src="{{ product.image.url }}" alt="{{ product.name }}" >
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Understood</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a href="{% url 'store_detail' product.seller.store_name %}" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Go to Shop</a>
                   </p>
-                </div>
+              </div>
+              
               </div>
         </div>
       </div>
