@@ -20,7 +20,7 @@ import re
 # sellers_group = Group.objects.create(name='Sellers')
     
 class Seller(models.Model):
-    # username = models.OneToOneField(settings.AUTH_USER_MODEL, null=False, blank=True, on_delete=models.CASCADE, default=None)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
     store_name = models.CharField(max_length=50)
@@ -63,5 +63,6 @@ class SellerProduct(models.Model):
     status = models.BooleanField(default=True)
     last_update = models.DateTimeField(auto_now=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default=1)
+    
     def __str__(self):
         return self.name
