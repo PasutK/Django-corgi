@@ -36,10 +36,10 @@
         {% endif %}
         </h5></li>
       <li class="list-group-item">Price: {{ product.price }}</li>
-      <li class="list-group-item">        
-        {% if product.seller %}
-        <p>Store name: {{ product.seller.store_name }}</p>
-        <p>Address: {{ product.seller.address }}</p>
+      <li class="list-group-item">     
+        {% if seller %}
+          <p>Store name: {{ seller.store_name }}</p>
+          <p>Address: {{ seller.address }}</p>
         {% else %}
           <p>No seller information available</p>
         {% endif %}

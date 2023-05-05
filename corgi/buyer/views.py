@@ -70,18 +70,18 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 
-# def checkout(request):
-#     if request.method == 'POST':
-#         cart = request.session.pop('cart', None)
+def checkout(request):
+    if request.method == 'POST':
+        cart = request.session.pop('cart', None)
 
-#         if cart:
-#             for item in cart.values():
-#                 product = SellerProduct.objects.get(name=item['name'])
-#                 product.quantity -= item['quantity']
-#                 product.save()
+        if cart:
+            for item in cart.values():
+                product = SellerProduct.objects.get(name=item['name'])
+                product.quantity -= item['quantity']
+                product.save()
 
-#             # transaction = Transaction.objects.create(user=request.user, cart=cart)
-#             # return redirect('thank_you')
+            # transaction = Transaction.objects.create(user=request.user, cart=cart)
+            # return redirect('thank_you')
 
-#     return render(request, 'checkout.html')
+    return render(request, 'checkout.html')
 
