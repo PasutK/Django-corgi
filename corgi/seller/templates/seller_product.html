@@ -1,26 +1,41 @@
 {% extends "homepage.html" %}
 {% block nav %}
-<li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="categories" style="color: #595959";>Categories</a>
-</li>
 {% endblock %}
+<div class="row">
+    <div class="col-md-2">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'seller_product' %}" style="color: #595959;">Manage my profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'seller_product' %}" style="color: #595959;">Manage my store</a>
+            </li>
+        </ul>
+    </div>
+</div>
 {% block content %}
-<h1 style="font-size:50px; padding: 20px; margin-left:10px;">Categories</h1>
-<!-- <div class="row row-cols-1 row-cols-md-2 g-4"> -->
-<table class="table table-striped">
-    {% for product in seller_products %}
-        <div class="product">
-            <h3>{{ product.name }}</h3>
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300" height="300">
-            <p>Category: {{ product.category }}</p>
-            <p>Price: {{ product.price }}</p>
-            <p>Status: {{ product.status }}</p>
-        </div>
-    {% endfor %}
-</table>
-<!-- </div> -->
+    <div class="col-md-10">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in seller_products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td><img src="{{ product.image.url }}" alt="{{ product.name }}" width="100" height="100"></td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
-
