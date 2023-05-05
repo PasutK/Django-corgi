@@ -1,7 +1,24 @@
 from django.db import models
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html
+from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group
 import re
+
+# class SellerPermissions:
+#     CAN_ADD_PRODUCT = 'can_add_product'
+
+# def create_seller_permissions():
+#     permission = Permission.objects.create(
+#         codename=SellerPermissions.CAN_ADD_PRODUCT,
+#         name='Can add products to marketplace',
+#         content_type_id=0)
+#     return permission
+
+
+# sellers_group = Group.objects.create(name='Sellers')
+
 
 def is_valid_buyer_phone(phone):
     """
@@ -32,6 +49,8 @@ def validate_buyer_email(email):
         raise ValidationError("Please enter a valid email address.")
     
 class Seller(models.Model):
+    USERNAME_FIELD = 'username'
+    username = models.OneToOneField(settings.AUTH_USER_MODEL, null=False, blank=True, on_delete=models.CASCADE, default=None)
     email = models.EmailField(unique=True, validators=[validate_buyer_email])
     password = models.CharField(max_length=100)
     store_name = models.CharField(max_length=50)

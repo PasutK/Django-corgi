@@ -1,10 +1,20 @@
 from django.db import models
 import datetime
+from django.contrib.auth.models import Permission
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html
 import re
 from seller.models import Seller
 
+class BuyerPermissions:
+    CAN_BUY = 'can_buy'
+
+def create_seller_permissions():
+    permission = Permission.objects.create(
+        codename=BuyerPermissions.CAN_BUY,
+        name='Can buy products from marketplace',
+        content_type_id=0)
+    return permission
 
 def is_valid_buyer_phone(phone):
     """
