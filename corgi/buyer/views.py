@@ -36,12 +36,6 @@ def store_detail(request, store_name):
     context = {'stores': stores}
     return render(request, 'store_detail.html', context)
 
-# ไม่ได้
-# def cart(request, store_name):
-#     carts = SellerProduct.objects.all()
-#     context = {'carts': cart}
-#     return render(request, 'cart.html', context)
-
 def add_to_cart(request, product_id):
     product = SellerProduct.objects.get(id=product_id)
     quantity = int(request.POST.get('quantity'))
@@ -63,10 +57,10 @@ def add_to_cart(request, product_id):
 
 def cart(request):
     cart_items = []
+    total_price = 0  # Define total_price outside of the if block
 
     if 'cart' in request.session:
         cart = request.session.get('cart', {})
-        total_price = 0
 
         for item in cart.values():
             cart_items.append(item)
@@ -74,6 +68,7 @@ def cart(request):
 
     context = {'cart_items': cart_items, 'total_price': total_price}
     return render(request, 'cart.html', context)
+
 
 # def checkout(request):
 #     if request.method == 'POST':

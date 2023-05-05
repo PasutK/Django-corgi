@@ -1,4 +1,4 @@
-<!-- {% extends "homepage.html" %}
+{% extends "homepage.html" %}
 
 {% block nav %}
 <li class="nav-item">
@@ -13,28 +13,28 @@
 <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/login" style="color: #595959;";>login</a>
 </li>
-{% endblock %} -->
+{% endblock %}
 
 {% block content %}
-    <!-- <h1>Shopping Cart</h1>
+    <h1>Shopping Cart</h1>
     {% if carts %}
     <ul>
-        {% for cart in carts %}
+        {% for cart in cart_items %}
         <li>
             <h2>{{ cart.name }}</h2>
             <img src="{{ cart.image.url }}" alt="{{ cart.name }}" width="750" height="450">
             <p>Quantity: {{ cart.quantity }}</p>
             <p>Price: ${{ cart.price }}</p>
-            <p>Total Price: ${{ cart.quantity|mul:cart.price }}</p>
+            <p>Total Price: ${{ cart.total_price }}</p>
         </li>
         {% endfor %}
     </ul>
-    <h2>Total: ${{ carts|aggregate(sum_price=Sum(F('quantity')*F('price')))['sum_price'] }}</h2>
+    <h2>Total: ${{ total_price }}</h2>
     <form method="POST" action="{% url 'create_transaction' %}">
         {% csrf_token %}
         <button type="submit">Buy</button>
     </form>
     {% else %}
     <h2>Your cart is empty.</h2>
-    {% endif %} -->
+    {% endif %}
 {% endblock %}

@@ -38,15 +38,3 @@ def logout_seller(request):
 
 def sbase(request):
     return render(request, "Sbase.html", {})
-
-# def seller_product_list(request):
-#     # products = SellerProduct.objects.filter(seller=request.user.seller)
-#     products = SellerProduct.objects
-#     context = {'products': products}
-#     return render(request, 'product_list.html', context)
-
-def seller_product_list(request):
-    seller = Seller.objects.filter(first_name=request.user).first()
-    products = SellerProduct.objects.filter(seller=seller)
-    context = {'products': products}
-    return render(request, 'product_list.html', context)

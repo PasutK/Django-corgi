@@ -17,14 +17,19 @@
 {% for product in products %}
   <h1>{{ product.category.name }}</h1>
     <ul>
-      <li>
+        <div class="card">
         <h2>{{ product.name }}</h2>
         <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300" height="300">
         <p>Category: {{ product.category.name }}</p>
         <p>Price: {{ product.price }}</p>
         <p>store_name: {{ product.seller.store_name }}</p>
         <p>address: {{ product.seller.address }}</p>
-      </li>
+         <!--Add to Cart-->
+         <hr>
+         <button type="add" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;">Add to Cart</button>
+         <hr>
+         <button type="buy" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;">Buy</button>
+        </div>
     </ul>
   {% empty %}
     <h1>No products found.</h1>
