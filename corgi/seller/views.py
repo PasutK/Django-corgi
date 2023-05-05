@@ -23,7 +23,6 @@ def Slogin(request):
         return render(request, 'Slogin.html', {})
     
 def register_seller(request):
-    form = NewSellerForm()
     if request.method == "POST":
         form = NewSellerForm(request.POST, request.FILES)
         if form.is_valid():
@@ -32,9 +31,25 @@ def register_seller(request):
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, "Register complete")
-            return redirect(homepage)
+            messages.success(request, "Your store has created!")
+            return redirect('/seller/products') 
+    else:  
+        form = NewSellerForm()
     return render(request, 'Sregister.html', {'form': form })
+
+# def vendor_register(request):
+#     if request.method == 'POST':
+#         form = VendorForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             vendor = form.save(commit=False)
+#             vendor.user = request.user
+#             vendor.save()
+#             messages.success(request, 'Your vendor account has been created!')
+#             return redirect('vendor:my_products')
+#     else:
+#         form = VendorForm()
+#     return render(request, 'vendor_registration.html', {'form': form})
+
 
 def logout_seller(request):
     return render(request, 'Slogout.html', {})
