@@ -24,7 +24,8 @@
             <div class="col-md-8">
               <div class="card-body">
                 <h2 class="card-title" style="font-family: Arial, sans-serif;">{{ product.name }}</h2>
-                <p class="card-text">Category: {{ product.category.name }}</p>
+                <p class="card-text">{{ product.category.name }}</p>
+                <p class="card-text">{{ product.description }}</p>
                 <p class="card-text">Price: {{ product.price }}</p>
                 <p class="card-text">Store name: {{ product.seller.store_name }}</p>
                 <p class="card-text">Address: {{ product.seller.address }}</p>

@@ -19,7 +19,7 @@
   <div class="row row-cols-1 row-cols-md-4 g-4">
     {% for product in products %}
   <div class="col">
-  <div class="card" style="width: 18rem; padding:10px;">
+  <div class="card" style="width: 18rem; padding:10px; border:0px;">
     {% if product.image %}
     <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}">
     {% else %}
@@ -30,7 +30,7 @@
       <ul class="list-group list-group-flush">
       <li class="list-group-item"><h5>        
         {% if product.category %}
-        <p>Category: {{ product.category.name }}</p>
+        <p>{{ product.category.name }}</p>
         {% else %}
         <p>No category available</p>
         {% endif %}
