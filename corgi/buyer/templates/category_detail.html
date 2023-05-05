@@ -7,6 +7,8 @@
   <a class="nav-link active" aria-current="page" href="categories" style="color: #595959";>Categories</a>
 </li>
 
+{% endblock %}
+{% block right-nav%}
 <li class="nav-item">
   <a class="nav-link active" aria-current="page" href="login" style="color: #595959";>login</a>
 </li>
@@ -14,11 +16,12 @@
 {% block content %}
 <h1>{{ category.name }}</h1>
 <ul>
-  <div style="display: flex;">
-  {% for product in products %}
-  <div class="card" style="width: 18rem;">
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for product in products %}
+  <div class="col">
+  <div class="card" style="width: 18rem; padding:10px;">
     {% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}">
     {% else %}
       <p>No image available</p>
     {% endif %}
@@ -42,6 +45,8 @@
         {% endif %}
       </li>
       </ul>
+      <a class="stretched-link" href="{{ product.name }}"></a>
+    </div>
     </div>
   </div>
   {% endfor %}
