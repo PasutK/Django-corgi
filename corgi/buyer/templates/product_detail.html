@@ -4,7 +4,7 @@
   <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="categories" style="color: #595959";>Categories</a>
+  <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959";>Categories</a>
 </li>
 {% endblock %}
 
@@ -15,24 +15,31 @@
 {% endblock %}
 {% block content %}
 {% for product in products %}
-  <h1>{{ product.category.name }}</h1>
-    <ul>
-        <div class="card">
-        <h2>{{ product.name }}</h2>
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300" height="300">
-        <p>Category: {{ product.category.name }}</p>
-        <p>Price: {{ product.price }}</p>
-        <p>store_name: {{ product.seller.store_name }}</p>
-        <p>address: {{ product.seller.address }}</p>
-         <!--Add to Cart-->
-         <hr>
-         <button type="add" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;">Add to Cart</button>
-         <hr>
-         <button type="buy" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;">Buy</button>
-         <hr>
-         <button type="link" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;">Go to Shop</button>
+  {% comment %} <h1>{{ product.category.name }}</h1> {% endcomment %}
+      <div class="card mb-3" style="border:0px;">
+        <div class="row g-0">
+          <div class="col-md-4">        
+            <img class="img-fluid rounded-start" src="{{ product.image.url }}" alt="{{ product.name }}" >
+          </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h2 class="card-title" style="font-family: Arial, sans-serif;">{{ product.name }}</h2>
+                <p class="card-text">Category: {{ product.category.name }}</p>
+                <p class="card-text">Price: {{ product.price }}</p>
+                <p class="card-text">Store name: {{ product.seller.store_name }}</p>
+                <p class="card-text">Address: {{ product.seller.address }}</p>
+                <!--Add to Cart-->
+              </div>
+                <div class="card-footer">
+                  <p class="card-text">
+                  <button type="add" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Add to Cart</button>
+                  <button type="buy" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Buy</button>
+                  <button type="link" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Go to Shop</button>
+                  </p>
+                </div>
+              </div>
         </div>
-    </ul>
+      </div>
   {% empty %}
     <h1>No products found.</h1>
   {% endfor %}
