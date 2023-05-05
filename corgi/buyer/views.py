@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product
 from seller.models import SellerCategory, SellerProduct, Seller
-
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 def Blogin(request):
@@ -84,4 +85,13 @@ def checkout(request):
             # return redirect('thank_you')
 
     return render(request, 'checkout.html')
+
+# @require_POST
+def add_to_cart(request):
+    product_id = request.POST['product_id']
+    amount = int(request.POST['amount'])
+    product = Product.objects.get(pk=product_id)
+    cart = cart(request)
+    cart.add(product, amount)
+    return redirect('cart')
 

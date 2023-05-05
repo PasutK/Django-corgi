@@ -34,7 +34,8 @@
         <div class="card-footer">
           <p class="card-text">
             <button type="button" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;" data-bs-toggle="modal" data-bs-target="#buy-modal-{{ product.id }}">Buy</button>
-            <a href="{% url 'cart' %}" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Add to Cart</a>
+            <button type="button" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;" data-bs-toggle="modal" data-bs-target="#Add to Cart-modal-{{ product.id }}">Add to Cart</button>
+            <!-- <a href="{% url 'cart' %}" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Add to Cart</a> -->
             <!-- store พังอยู่ลิ้งไม่ได้จ้าาาาา -->
             <button type="button" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Go to Store</button>
           </p>
@@ -60,11 +61,19 @@
             <button type="submit" class="btn btn-primary">Buy Now</button>
           </form>
         </div>
+
+        <div class="modal-body">
+          <form method="post">
+            {% csrf_token %}
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity" value="1" min="1">
+            <button type="submit">Add to cart</button>
+          </form>
+          <a href="{% url 'category_list' %}">Continue Shopping</a>
+        </div>
       </div>
     </div>
   </div>
 
   {% endfor %}
 {% endblock %}
-
-
