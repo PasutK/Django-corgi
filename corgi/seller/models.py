@@ -18,53 +18,26 @@ import re
 
 
 # sellers_group = Group.objects.create(name='Sellers')
-
-
-def is_valid_buyer_phone(phone):
-    """
-    Returns True if the phone number is valid, False otherwise.
-    """
-    regex = r'^\d{3}[-]?\d{3}[-]?\d{4}$'
-    return re.match(regex, phone) is not None
-
-def validate_buyer_phone(phone):
-    """
-    Validates that the phone number is a valid 10-digit phone number.
-    """
-    if not is_valid_buyer_phone(phone):
-        raise ValidationError("Please enter a valid 10-digit phone number.")
-
-def is_valid_buyer_email(email):
-    """
-    Returns True if the email address is valid, False otherwise.
-    """
-    regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    return re.match(regex, email) is not None
-
-def validate_buyer_email(email):
-    """
-    Validates that the email address is a valid email address.
-    """
-    if not is_valid_buyer_email(email):
-        raise ValidationError("Please enter a valid email address.")
     
 class Seller(models.Model):
-    USERNAME_FIELD = 'username'
-    username = models.OneToOneField(settings.AUTH_USER_MODEL, null=False, blank=True, on_delete=models.CASCADE, default=None)
-    email = models.EmailField(unique=True, validators=[validate_buyer_email])
+    # username = models.OneToOneField(settings.AUTH_USER_MODEL, null=False, blank=True, on_delete=models.CASCADE, default=None)
+    email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
     store_name = models.CharField(max_length=50)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=12, validators=[validate_buyer_phone])
+    phone = models.CharField(max_length=12)
     address = models.CharField(max_length=300)
     store_image = models.ImageField(upload_to="seller/media/store/")
     qrcode_image = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
+
+    @staticmethod
+    def get_all_sellers():
+            return Seller.objects.all()
+            
     def __str__(self):
-        return self.store_name
-    def register(self):
-        self.save()
+            return self.store_name
 
 class SellerCategory(models.Model):
     name = models.CharField(max_length=50)
@@ -73,6 +46,13 @@ class SellerCategory(models.Model):
         return self.name
     def img_preview(self, obj):
         return format_html('<img src="{}" width="300"/>'.format(obj.image.url))
+    
+    @staticmethod
+    def get_all_categories_by_sellerid(vendor_id):
+        if vendor_id:
+                return SellerCategory.objects.filter(vendor=vendor_id)
+        else:
+                return SellerCategory.get_all_categories()
 
 class SellerProduct(models.Model):
     name = models.CharField(max_length=60)
