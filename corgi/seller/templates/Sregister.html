@@ -12,7 +12,7 @@
             <h1 class='box'>Registration</h1>
             {% csrf_token %}
             {{ form.as_p }}
-            <div class='form-group'>
+            {% comment %} <div class='form-group'>
             <label>email</label>
             <input type="text" name="email" placeholder="" required>
             <label>Password</label>
@@ -38,8 +38,8 @@
                 <p><label>QR Code</label></p>
                 <input required type='file' name='qrcode_image'>
                 <p></p>
-            </div>
-            <button submit type="submit">Register</button>
+            </div> {% endcomment %}
+            <button type="submit">Register</button>
         </div>
         </form>
     </div>

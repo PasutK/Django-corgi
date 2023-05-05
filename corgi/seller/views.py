@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from homepage.views import homepage
 from .models import *
+from .forms import NewSellerForm
 
 def Slogin(request):
     if request.method == "POST":
@@ -22,16 +23,18 @@ def Slogin(request):
         return render(request, 'Slogin.html', {})
     
 def register_seller(request):
+    form = NewSellerForm()
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = NewSellerForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            form.save(commit=False)
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, "Register complete")
-    return render(request, 'Sregister.html', {'form':form})
+            return redirect(homepage)
+    return render(request, 'Sregister.html', {'form': form })
 
 def logout_seller(request):
     return render(request, 'Slogout.html', {})
