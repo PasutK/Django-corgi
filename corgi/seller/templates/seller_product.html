@@ -1,0 +1,26 @@
+{% extends "homepage.html" %}
+{% block nav %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="categories" style="color: #595959";>Categories</a>
+</li>
+{% endblock %}
+{% block content %}
+<h1 style="font-size:50px; padding: 20px; margin-left:10px;">Categories</h1>
+<!-- <div class="row row-cols-1 row-cols-md-2 g-4"> -->
+<table class="table table-striped">
+    {% for product in seller_products %}
+        <div class="product">
+            <h3>{{ product.name }}</h3>
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300" height="300">
+            <p>Category: {{ product.category }}</p>
+            <p>Price: {{ product.price }}</p>
+            <p>Status: {{ product.status }}</p>
+        </div>
+    {% endfor %}
+</table>
+<!-- </div> -->
+{% endblock %}
+

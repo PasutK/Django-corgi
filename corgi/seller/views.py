@@ -38,3 +38,12 @@ def logout_seller(request):
 
 def sbase(request):
     return render(request, "Sbase.html", {})
+
+def seller_product(request):
+    seller_products = SellerProduct.objects.all()
+
+    context = {
+        'seller_products': seller_products
+    }
+
+    return render(request, 'seller_product.html', context)
