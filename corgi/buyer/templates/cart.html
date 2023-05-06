@@ -1,6 +1,7 @@
-
+<!DOCTYPE html>
 <html>
 <head>
+    <title>My Cart</title>
     <style>
         body{
             margin: 0;
@@ -74,30 +75,10 @@
 </head>
 <body>
     <div class="Cart-Container">
-        {% block content %}
-            <h1>Shopping Cart</h1>
-            {% if carts %}
-            <ul>
-                {% for cart in cart_items %}
-                <li>
-                    <h2>{{ cart.name }}</h2>
-                    <img src="{{ cart.image.url }}" alt="{{ cart.name }}" width="750" height="450">
-                    <p>Quantity: {{ cart.quantity }}</p>
-                    <p>Price: ${{ cart.price }}</p>
-                    <p>Total Price: ${{ cart.total_price }}</p>
-                </li>
-                {% endfor %}
-            </ul>
-            <h2>Total: ${{ total_price }}</h2>
-            <form method="POST" action="{% url 'create_transaction' %}">
-                {% csrf_token %}
-                <button type="submit">Buy</button>
-            </form>
-            {% else %}
-            <h2>Your cart is empty.</h2>
-            {% endif %}
-        {% endblock %}
+        <div class="Header">
+            <h3 class="Heading">Shopping Cart</h3>
+            <h5 class="Action">Remove all</h5>
+        </div>
     </div>
 </body>
-
 </html>

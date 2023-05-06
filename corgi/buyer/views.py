@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Category, Product
 from seller.models import SellerCategory, SellerProduct, Seller
 from django.shortcuts import render, redirect
@@ -56,6 +57,7 @@ def add_to_cart(request, product_id):
     request.session.modified = True
     return redirect('cart')
 
+@login_required
 def cart(request):
     cart_items = []
     total_price = 0  # Define total_price outside of the if block
