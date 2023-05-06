@@ -6,6 +6,9 @@ from homepage.views import homepage
 from .models import *
 from .forms import NewSellerForm
 
+def sbase(request):
+    return render(request, "Sbase.html", {})
+
 def Slogin(request):
     if request.method == "POST":
         username =  request.POST['username']
@@ -36,25 +39,11 @@ def register_seller(request):
         form = NewSellerForm()
     return render(request, 'Sregister.html', {'form': form })
 
-# def vendor_register(request):
-#     if request.method == 'POST':
-#         form = VendorForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             vendor = form.save(commit=False)
-#             vendor.user = request.user
-#             vendor.save()
-#             messages.success(request, 'Your vendor account has been created!')
-#             return redirect('vendor:my_products')
-#     else:
-#         form = VendorForm()
-#     return render(request, 'vendor_registration.html', {'form': form})
-
-
 def logout_seller(request):
+    logout(request)
+    messages.success(request, "You have been logged out.")
     return render(request, 'Slogout.html', {})
 
-def sbase(request):
-    return render(request, "Sbase.html", {})
 
 def seller_product(request):
     seller_products = SellerProduct.objects.all()
