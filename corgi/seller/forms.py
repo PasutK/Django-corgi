@@ -1,4 +1,5 @@
 from django import forms
+from django.db import models
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -33,10 +34,13 @@ import re
 #     if not is_valid_buyer_email(email):
 #         raise ValidationError("Please enter a valid email address.")
 
-class NewSellerForm(forms.ModelForm):
+class NewSellerForm(UserCreationForm):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    username = forms.CharField(max_length=30)
     class Meta:
         model = Seller
-        fields = [ 'email', 'password', 'store_name',
+        fields = [ 'email', 'password1', 'password2', 'store_name',
                   'first_name', 'last_name', 'phone',
                   'address', 'store_image', 'qrcode_image']
 

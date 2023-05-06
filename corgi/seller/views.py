@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
 from homepage.views import homepage
 from .models import *
 from .forms import NewSellerForm
@@ -26,7 +25,7 @@ def register_seller(request):
     if request.method == "POST":
         form = NewSellerForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save(commit=False)
+            form.save()
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
