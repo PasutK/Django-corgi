@@ -15,15 +15,27 @@
 {% endblock %}
 
 {% block content %}
-{% for store in stores %}
-    <ul>
-            <img src="{{ store.store_image.url }}" class="img-fluid" alt="{{ store.store_name }}" width="750" height="450">
-            <h1>{{ store.store_name }}</h1>
-            <!-- <img src="{{ store.store_image.url }}" alt="{{ store.store_name }}", width="750" height="450"> -->
-            <p>Phone: {{ store.phone }}</p>
-            <p>Address: {{ store.address }}</p>
-    </ul>
-    {% empty %}
-    <h2>No products found.</h2>
-    {% endfor %}
-{% endblock %}
+    <div class="container mt-5">
+        {% for store in stores %}
+        <h1 class="text-center">{{ store.store_name }} Store information</h1>
+        <h5 class="text-center">Please feel free to talk with us!</h5>
+            <hr>    
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="img-fluid rounded" src="{{ store.store_image.url }}" alt="{{ store.store_name }}" >
+                    </div>
+                    <div class="col-md-8">
+                        <h5>Phone:</h5>
+                            <p>{{ store.phone }}</p>
+                            <hr>
+                        <h5>Location:</h5>
+                            <p>{{ store.address }}</p>
+            <hr>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endblock %}
+
+
+

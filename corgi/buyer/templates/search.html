@@ -9,26 +9,23 @@
 <li class="nav-item">
   <a class="nav-link active" aria-current="page" href="" style="color: #595959";>Order Status</a>
 </li>
-
 <li class="nav-item">
   <a class="nav-link active" aria-current="page" href="" style="color: #595959";>Chat with Corgi</a>
 </li>
-
 {% endblock %}
 {% block right-nav%}
 <form class="d-flex" role="search" action="{% url 'search' %}">
   <input class="form-control me-2" type="search" name="q" placeholder="All Product Search" aria-label="Search" >
   <button class="btn btn-outline-success" type="submit" >Search</button>
 </form>
-
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="/store/cart" style="color: #595959";>cart</a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="/store/login" style="color: #595959";>login</a>
-</li>
-{% endblock %}
+    <a class="nav-link active" aria-current="page" href="/store/cart" style="color: #595959";>cart</a>
+  </li>
+  
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/store/login" style="color: #595959";>login</a>
+  </li>
+  {% endblock %}
 
 {% block content %}
 <h1>{{ category.name }}</h1>

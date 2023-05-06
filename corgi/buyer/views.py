@@ -4,6 +4,7 @@ from .models import Category, Product
 from seller.models import SellerCategory, SellerProduct, Seller
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
+from django.db.models import Q
 
 # Create your views here.
 def Blogin(request):
@@ -43,24 +44,24 @@ def store_detail(request, store_name):
     context = {'stores': stores}
     return render(request, 'store_detail.html', context)
 
-def add_to_cart(request, product_id):
-    product = SellerProduct.objects.get(id=product_id)
-    quantity = int(request.POST.get('quantity'))
-    total_price = product.price * quantity
+# def add_to_cart(request, product_id):
+#     product = SellerProduct.objects.get(id=product_id)
+#     quantity = int(request.POST.get('quantity'))
+#     total_price = product.price * quantity
 
-    if 'cart' not in request.session:
-        request.session['cart'] = {}
+#     if 'cart' not in request.session:
+#         request.session['cart'] = {}
 
-    cart = request.session['cart']
+#     cart = request.session['cart']
 
-    if product_id not in cart:
-        cart[product_id] = {'name': product.name, 'image': product.image.url, 'quantity': quantity, 'price': product.price, 'total_price': total_price}
-    else:
-        cart[product_id]['quantity'] += quantity
-        cart[product_id]['total_price'] = cart[product_id]['quantity'] * cart[product_id]['price']
+#     if product_id not in cart:
+#         cart[product_id] = {'name': product.name, 'image': product.image.url, 'quantity': quantity, 'price': product.price, 'total_price': total_price}
+#     else:
+#         cart[product_id]['quantity'] += quantity
+#         cart[product_id]['total_price'] = cart[product_id]['quantity'] * cart[product_id]['price']
 
-    request.session.modified = True
-    return redirect('cart')
+#     request.session.modified = True
+#     return redirect('cart')
 
 @login_required
 def cart(request):
@@ -77,6 +78,14 @@ def cart(request):
     context = {'cart_items': cart_items, 'total_price': total_price}
     return render(request, 'cart.html', context)
 
+@require_POST
+def add_to_cart(request):
+    product_id = request.POST['product_id']
+    amount = int(request.POST['amount'])
+    product = Product.objects.get(pk=product_id)
+    cart = cart(request)
+    cart.add(product, amount)
+    return redirect('cart')
 
 def checkout(request):
     if request.method == 'POST':
@@ -93,12 +102,18 @@ def checkout(request):
 
     return render(request, 'checkout.html')
 
-@require_POST
-def add_to_cart(request):
-    product_id = request.POST['product_id']
-    amount = int(request.POST['amount'])
-    product = Product.objects.get(pk=product_id)
-    cart = cart(request)
-    cart.add(product, amount)
-    return redirect('cart')
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        products = SellerProduct.objects.filter(
+            Q(name__icontains=query) | Q(description__icontains=query) 
+        )
+    else:
+        products = SellerProduct.objects.all()
+    return render(request, 'search.html', {'products': products})
+
+
+
+
 
