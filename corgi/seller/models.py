@@ -20,31 +20,14 @@ import re
 
 # sellers_group = Group.objects.create(name='Sellers')
     
-class Seller(AbstractUser):
-    USERNAME_FIELD = "email"
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=100)
+class Seller(models.Model):
     store_name = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=12)
     address = models.CharField(max_length=300)
     store_image = models.ImageField(upload_to="seller/media/store/")
     qrcode_image = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
-
-    groups = models.ManyToManyField(
-        'auth.Group',
-        blank=True,
-        related_name='seller_groups',
-        related_query_name='seller_group',
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        blank=True,
-        related_name='seller_user_permissions',
-        related_query_name='seller_user_permission',
-    )
+    # user = models.ForeignKey(User) --> fix later
 
     @staticmethod
     def get_all_sellers():
@@ -76,7 +59,7 @@ class SellerProduct(models.Model):
     image = models.ImageField(upload_to="seller/media/product")
     status = models.BooleanField(default=True)
     last_update = models.DateTimeField(auto_now=True)
-    seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default=1)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.name
+        return f"product: {self.name} from seller: {self.seller.store_name}"

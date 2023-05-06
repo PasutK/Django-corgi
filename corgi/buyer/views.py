@@ -25,6 +25,10 @@ def category_list(request):
 
 def category_detail(request, category):
     products = SellerProduct.objects.filter(category=category)
+#    print(f"product:{products}")
+    for product in products:
+        print(f"product: {product}")
+    
     context = {'products': products}
     return render(request, 'category_detail.html', context)
 
@@ -35,6 +39,7 @@ def product_detail(request, category, name):
 
 def store_detail(request, store_name):
     stores = Seller.objects.filter(store_name=store_name.replace('_', ' '))
+    print(f"store:{stores}")
     context = {'stores': stores}
     return render(request, 'store_detail.html', context)
 

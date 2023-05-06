@@ -40,9 +40,10 @@ class NewSellerForm(UserCreationForm):
     username = forms.CharField(max_length=30)
     class Meta:
         model = Seller
-        fields = [ 'email', 'password1', 'password2', 'store_name',
-                  'first_name', 'last_name', 'phone',
-                  'address', 'store_image', 'qrcode_image']
+        # fields = [ 'email', 'password1', 'password2', 'store_name',
+        #           'first_name', 'last_name', 'phone',
+        #           'address', 'store_image', 'qrcode_image']
+        fields = [ 'store_name']
 
 	
 class SellerLoginForm(forms.Form):
