@@ -5,6 +5,12 @@ from django.contrib.auth import authenticate, login, logout
 from homepage.views import homepage
 from .models import *
 from .forms import NewSellerForm
+from core.models import User
+
+
+
+def sbase(request):
+    return render(request, "Sbase.html", {})
 
 def Slogin(request):
     if request.method == "POST":
@@ -24,37 +30,45 @@ def Slogin(request):
 def register_seller(request):
     if request.method == "POST":
         form = NewSellerForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password1"]
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            messages.success(request, "Your store has created!")
-            return redirect('/seller/products') 
+        print(request.POST)
+    #if form.is_valid():
+        # future clean up - createa fucntion to register the user
+        registered_username = request.POST["username"]
+        registered_password = request.POST["password1"]
+        registered_email = request.POST["email"]
+        registered_firstname = request.POST["first_name"]
+        registered_lastname = request.POST["last_name"]
+
+        user = User.objects.create_user(username=registered_username,
+                                        password=registered_password,
+                                        first_name=registered_firstname,
+                                        last_name=registered_lastname,
+                                        email=registered_email)
+        user.save()
+
+        seller_profile = SellerProfile.objects.create
+            # form.save()
+            # username = form.cleaned_data["username"]
+            # password = form.cleaned_data["password1"]
+            # user = authenticate(username=username, password=password)
+            # login(request, user)
+
+
+        #def create_Seller(self, user):
+        #    seller = self.create(user)
+
+
+        messages.success(request, "Your store has created!")
+        return redirect('/seller/products') 
     else:  
         form = NewSellerForm()
     return render(request, 'Sregister.html', {'form': form })
 
-# def vendor_register(request):
-#     if request.method == 'POST':
-#         form = VendorForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             vendor = form.save(commit=False)
-#             vendor.user = request.user
-#             vendor.save()
-#             messages.success(request, 'Your vendor account has been created!')
-#             return redirect('vendor:my_products')
-#     else:
-#         form = VendorForm()
-#     return render(request, 'vendor_registration.html', {'form': form})
-
-
 def logout_seller(request):
+    logout(request)
+    messages.success(request, "You have been logged out.")
     return render(request, 'Slogout.html', {})
 
-def sbase(request):
-    return render(request, "Sbase.html", {})
 
 def seller_product(request):
     seller_products = SellerProduct.objects.all()

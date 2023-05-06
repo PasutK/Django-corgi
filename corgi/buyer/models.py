@@ -4,7 +4,8 @@ from django.contrib.auth.models import Permission
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html
 import re
-from seller.models import Seller
+from seller.models import Seller #,SellerProduct
+
 
 class BuyerPermissions:
     CAN_BUY = 'can_buy'
@@ -60,7 +61,7 @@ class Category(models.Model):
     def img_preview(self, obj):
         return format_html('<img src="{}" width="300"/>'.format(obj.image.url))
 
-class Product(models.Model):
+class Product(models.Model): # ต้องลบ จะเชื่อม product มาจาก seller
     name = models.CharField(max_length=255)
     describtion = models.CharField(max_length=500)
     price = models.DecimalField(max_digits= 7, decimal_places= 2)
@@ -72,11 +73,21 @@ class Product(models.Model):
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default=1)
 
 class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE) 
     customer = models.ForeignKey(BuyerProfile, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
-    address = models.CharField(max_length=50, default="", blank=True)
-    phone = models.CharField(max_length=50, default="", blank=True)
+    # address = models.CharField(max_length=50, default="", blank=True)
+    # phone = models.CharField(max_length=50, default="", blank=True)
     date = models.DateField(default=datetime.datetime.today)
     status = models.BooleanField(default=False)
+
+    def placeorder(self):
+        self.save()
+
+    def __str__(self):
+        return self.product,self.customer,self.quantity
+    
+    @staticmethod
+    def get_orders_by_customer(customer_id):
+        return Order.objects.filter(customer = customer_id).order_by("-date")
