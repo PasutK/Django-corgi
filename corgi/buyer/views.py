@@ -86,7 +86,7 @@ def checkout(request):
 
     return render(request, 'checkout.html')
 
-# @require_POST
+@require_POST
 def add_to_cart(request):
     product_id = request.POST['product_id']
     amount = int(request.POST['amount'])
