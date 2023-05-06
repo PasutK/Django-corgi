@@ -52,7 +52,7 @@
         </h5></li>
       <li class="list-group-item">Price: {{ product.price }}</li>
       <li class="list-group-item">     
-        {% if seller %}
+        {% if product.seller %}
           <p>Store name: {{ product.seller.store_name }}</p>
           <p>Address: {{ product.seller.address }}</p>
         {% else %}
