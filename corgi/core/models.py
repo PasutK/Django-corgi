@@ -14,6 +14,7 @@ def phone_validator(value):
         raise ValidationError('Invalid Phone number')
 
 class User(AbstractUser):
+    username = models.CharField(max_length=50,unique=True)
     email = models.EmailField(unique=True, validators=[email_validator])
     phone = models.CharField(max_length=10, validators=[phone_validator])
     address = models.CharField(max_length=255)

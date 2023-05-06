@@ -12,33 +12,6 @@
             <h1 class='box'>Registration</h1>
             {% csrf_token %}
             {{ form.as_p }}
-            {% comment %} <div class='form-group'>
-            <label>email</label>
-            <input type="text" name="email" placeholder="" required>
-            <label>Password</label>
-            <input type="password" name="password" placeholder="" required>
-            <label>Confirm Password</label>
-            <input type="password" name="confirm_password" placeholder="" required>
-            <label>Store Name</label>
-            <input type="text" name="store_name" placeholder="" required>
-            <label>First Name</label>
-            <input type="text" name="first_name" placeholder="" required>
-            <label>Last Name</label>
-            <input type="text" name="last_name" placeholder="" required>
-            <label>Tel.</label>
-            <input type="text" name="phone" placeholder="0xxxxxxxxx (only numbers)" required>
-            <label>Address</label>
-            <input type="text" name="address" placeholder="" required>
-
-            <div class='file-upload'>
-            <p><label>Store Picture</label></p>
-            <input required type='file' name='store_image'>
-            </div>
-            <div class='file-upload'>
-                <p><label>QR Code</label></p>
-                <input required type='file' name='qrcode_image'>
-                <p></p>
-            </div> {% endcomment %}
             <button type="submit">Register</button>
         </div>
         </form>

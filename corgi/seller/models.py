@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.html import format_html
 from django.contrib.auth.models import Permission
 from django.contrib.auth.models import Group
+from django.contrib.auth.models import AbstractUser
 import re
 
 # class SellerPermissions:
@@ -19,8 +20,8 @@ import re
 
 # sellers_group = Group.objects.create(name='Sellers')
     
-class Seller(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
+class Seller(AbstractUser):
+    USERNAME_FIELD = "email"
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
     store_name = models.CharField(max_length=50)
@@ -31,6 +32,19 @@ class Seller(models.Model):
     store_image = models.ImageField(upload_to="seller/media/store/")
     qrcode_image = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        blank=True,
+        related_name='seller_groups',
+        related_query_name='seller_group',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        blank=True,
+        related_name='seller_user_permissions',
+        related_query_name='seller_user_permission',
+    )
 
     @staticmethod
     def get_all_sellers():
