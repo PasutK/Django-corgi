@@ -21,6 +21,7 @@ import re
 # sellers_group = Group.objects.create(name='Sellers')
     
 class Seller(AbstractUser):
+    pass 
     USERNAME_FIELD = "email"
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
@@ -32,6 +33,7 @@ class Seller(AbstractUser):
     store_image = models.ImageField(upload_to="seller/media/store/")
     qrcode_image = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
+    last_login = models.DateTimeField(auto_now=True)
 
     groups = models.ManyToManyField(
         'auth.Group',
