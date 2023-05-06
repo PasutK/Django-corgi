@@ -4,7 +4,7 @@
   <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="categories" style="color: #595959";>Categories</a>
+  <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959";>Categories</a>
 </li>
 <li class="nav-item">
   <a class="nav-link active" aria-current="page" href="" style="color: #595959";>Chat with Corgi</a>
@@ -17,7 +17,7 @@
 </form>
 
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="cart" style="color: #595959";>cart</a>
+  <a class="nav-link active" aria-current="page" href="cart/" style="color: #595959";>cart</a>
 </li>
 
 <li class="nav-item">
@@ -50,8 +50,8 @@
       <li class="list-group-item">Price: {{ product.price }}</li>
       <li class="list-group-item">     
         {% if seller %}
-          <p>Store name: {{ seller.store_name }}</p>
-          <p>Address: {{ seller.address }}</p>
+          <p>Store name: {{ product.seller.store_name }}</p>
+          <p>Address: {{ product.seller.address }}</p>
         {% else %}
           <p>No seller information available</p>
         {% endif %}
