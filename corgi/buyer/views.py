@@ -48,25 +48,6 @@ def store_detail(request, store_name):
     context = {'stores': stores}
     return render(request, 'store_detail.html', context)
 
-# def add_to_cart(request, product_id):
-#     product = SellerProduct.objects.get(id=product_id)
-#     quantity = int(request.POST.get('quantity'))
-#     total_price = product.price * quantity
-
-#     if 'cart' not in request.session:
-#         request.session['cart'] = {}
-
-#     cart = request.session['cart']
-
-#     if product_id not in cart:
-#         cart[product_id] = {'name': product.name, 'image': product.image.url, 'quantity': quantity, 'price': product.price, 'total_price': total_price}
-#     else:
-#         cart[product_id]['quantity'] += quantity
-#         cart[product_id]['total_price'] = cart[product_id]['quantity'] * cart[product_id]['price']
-
-#     request.session.modified = True
-#     return redirect('cart')
-
 @login_required
 def cart(request):
     cart_items = []
@@ -90,7 +71,7 @@ def add_to_cart(request):
     cart = cart(request)
     cart.add(product, amount)
     return redirect('cart')
-
+    
 def checkout(request):
     if request.method == 'POST':
         cart = request.session.pop('cart', None)
@@ -118,6 +99,18 @@ def search(request):
     return render(request, 'search.html', {'products': products})
 
 
+# @login_required
+# def chat(request):
+#     seller = Seller.objects.all() # assuming the user id is the same as the seller id
+#     context = {'store_name': seller.store_name}
+#     return render(request, 'chat.html', context=context)
 
 
 
+
+@login_required
+def chat(request, store_name):
+    stores = Seller.objects.filter(store_name=store_name)
+    print(f"store:{stores}")
+    context = {'stores': stores}
+    return render(request, 'chat.html', context=context)
