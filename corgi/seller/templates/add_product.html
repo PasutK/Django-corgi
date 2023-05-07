@@ -35,6 +35,10 @@
               .navbar-nav li a {
                 font-size: 18px; /* adjust the font size as desired */
               }
+              .card {
+                width: 1200px;
+                height: 540px;
+              }
             </style>
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -59,44 +63,73 @@
       </nav>
 </head>
 
-
 {% block content %}
 <body>
-  <ul><h2>{% if product %}Edit Product{% else %}Add New Product{% endif %}</h2></ul>
-  <form method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column;">
-    {% csrf_token %}
-    {% if product %}
-      <input type="hidden" name="product_id" value="{{ product.id }}">
-    {% endif %}
-    <div style="display: flex; flex-direction: column; margin-bottom: 10px;">
-      <label for="name">Name:</label>
-      <input type="text" name="name" value="{% if product %}{{ product.name }}{% endif %}">
-    </div>
-    <div style="display: flex; flex-direction: column; margin-bottom: 10px;">
-      <label for="category">Category:</label>
-      <select name="category">
-        {% for category in categories %}
-          <option value="{{ category.id }}" {% if product and product.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <div style="display: flex; flex-direction: column; margin-bottom: 10px;">
-      <label for="price">Price:</label>
-      <input type="text" name="price" value="{% if product %}{{ product.price }}{% endif %}">
-    </div>
-    <div style="display: flex; flex-direction: column; margin-bottom: 10px;">
-      <label for="image">Image:</label>
-      {% if product and product.image %}
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-      {% endif %}
-      <input type="file" name="image">
-    </div>
-    <div style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px;">
-      <label for="status">Status:</label>
-      <input type="checkbox" name="status" {% if product and product.status %}checked{% endif %}>
-    </div>
-    <button type="submit">{% if product %}Save{% else %}Add{% endif %} Product</button>
-  </form>
-</body>
+  <div class="container">
+    <div class="card">
+      <div class="card-header" style="border-color: #ec9410; background-color: #ec9410;">
+        <h2>{% if product %}Edit Product{% else %}Add New Product{% endif %}</h2>
+      </div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% if product %}
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+          {% endif %}
+          <div class="row">
+            <div class="col-md-6">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" class="form-control" name="name" value="{% if product %}{{ product.name }}{% endif %}">
+            </div>
+            <div class="col-md-6">
+              <label for="category" class="form-label">Category:</label>
+              <select class="form-select" name="category">
+                {% for category in categories %}
+                  <option value="{{ category.id }}" {% if product and product.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="price" class="form-label">Price:</label>
+              <input type="text" class="form-control" name="price" value="{% if product %}{{ product.price }}{% endif %}">
+            </div>
+            <div class="col-md-6">
+              <label for="status" class="form-label">Status:</label>
+              <select class="form-select" name="status">
+                <option value="active" {% if product and product.status == 'active' %}selected{% endif %}>Active</option>
+                <option value="out of stock" {% if product and product.status == 'out of stock' %}selected{% endif %}>Out of Stock</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label for="description" class="form-label">Description:</label>
+              <input type="text" class="form-control" name="description" value="{% if product %}{{ product.description }}{% endif %}" style="height: 100px;">
 
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label for="image" class="form-label">Image:</label>
+              <div class="mb-3">
+                {% if product and product.image %}
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail">
+                {% endif %}
+                <input type="file" class="form-control" name="image">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3" style="border-color: #ec9410; background-color: #ec9410;">{% if product %}Save{% else %}Add{% endif %} Product</button>
+        </form>
+
+      </div>
+    </div>
+  </div>        
+  <!-- <img src="{% static 'media/add.jpg' %}" alt="Add Image" class="img-thumbnail" style='width: 400px;height: 400px;position: absolute;top: 130%;right: -100%;transform: translateY(-50%);'> -->
+
+</body>
 {% endblock %}
+
+
