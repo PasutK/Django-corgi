@@ -44,12 +44,6 @@ class SellerCategory(models.Model):
     def img_preview(self, obj):
         return format_html('<img src="{}" width="300"/>'.format(obj.image.url))
     
-    @staticmethod
-    def get_all_categories_by_sellerid(vendor_id):
-        if vendor_id:
-                return SellerCategory.objects.filter(vendor=vendor_id)
-        else:
-                return SellerCategory.get_all_categories()
 
 class SellerProduct(models.Model):
     name = models.CharField(max_length=60)
