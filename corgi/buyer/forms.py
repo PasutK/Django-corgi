@@ -5,4 +5,4 @@ from .models import Cartitems
 class AddtoCart(forms.ModelForm):
     class Meta:
         model = Cartitems
-        fields = []
+        fields = ["amount"]
