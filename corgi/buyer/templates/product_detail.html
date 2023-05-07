@@ -42,7 +42,6 @@
           <p class="card-text">
             <button type="button" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;" data-bs-toggle="modal" data-bs-target="#Add-to-Cart-modal-{{ product.id }}">Add to Cart</button>
             
-            <!-- store พังอยู่ลิ้งไม่ได้จ้าาาาา -->
             <!-- <button type="button" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;" >Go to Store</button> -->
             <a href="{% url 'store_detail' store_name=product.seller.store_name %}" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Go to Store</a>
             <div class="modal fade" id="Add-to-Cart-modal-{{ product.id }}" tabindex="-1" aria-labelledby="Add-to-Cart-modal-{{ product.id }}" aria-hidden="true">
@@ -59,8 +58,9 @@
                       <input type="number" name="quantity" value="1" min="1">
                       <button type="submit" class="btn btn-primary">Add to cart</button>
                     </form> -->
-                    <form method="post">
+                    <form method="POST" action="">
                       {% csrf_token %}
+                      {{ form.as_p }}
                       <input type="hidden" name="product_id" value="{{ product.id }}">
                       <input type="hidden" name="price" value="{{ product.price }}">
                       <label for="quantity">Quantity:</label>
