@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import *
 from homepage.views import homepage
+from buyer.views import Bhomepage
 
 def userlogin(request):
     if request.method == "POST":
@@ -41,12 +42,13 @@ def userlogout(request):
 def userregister(request):
     form = FormRegistration(request.POST)
     if form.is_valid():
-        form.save()
+        new_user = form.save(commit=False)
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password1"]
+        new_user.save()
         user = authenticate(username=username,password=password)
-        login(username,password)
-        return redirect(userprofile)
+        login(request,user)
+        return redirect(Bhomepage)
     return render(request, "register.html", {'form':form})
 
 #         registered_username = request.POST["username"]

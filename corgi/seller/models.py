@@ -21,9 +21,9 @@ import re
 # sellers_group = Group.objects.create(name='Sellers')
     
 class Seller(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,max_length=100, null=False, blank=False, on_delete=models.CASCADE)
     store_name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=12)
-    address = models.CharField(max_length=300)
+    store_address = models.CharField(max_length=300,default=None)
     store_image = models.ImageField(upload_to="seller/media/store/")
     qrcode_image = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
@@ -44,12 +44,6 @@ class SellerCategory(models.Model):
     def img_preview(self, obj):
         return format_html('<img src="{}" width="300"/>'.format(obj.image.url))
     
-    @staticmethod
-    def get_all_categories_by_sellerid(vendor_id):
-        if vendor_id:
-                return SellerCategory.objects.filter(vendor=vendor_id)
-        else:
-                return SellerCategory.get_all_categories()
 
 class SellerProduct(models.Model):
     name = models.CharField(max_length=60)
