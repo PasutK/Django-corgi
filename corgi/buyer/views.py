@@ -1,19 +1,12 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from seller.models import SellerCategory, SellerProduct, Seller
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.db.models import Q
 import random
+from django.views import View
 # Create your views here.
-def Blogin(request):
-    pass
-
-def Bregister(request):
-    pass
-
-def Blogout(request):
-    pass
 
 def Bhomepage(request):
     allproducts = SellerProduct.objects.all()
@@ -43,6 +36,37 @@ def product_detail(request, category, name):
     print(f'{user}')
     return render(request, 'product_detail.html', context)
 
+class Index(View):
+    def get(self, request):
+        print(f"1.{request.get_full_path()}")
+        return HttpResponseRedirect(f'store'+f"{request.get_full_path().split('buyers/')[1]}")
+    
+    def post(self, request):
+        product = request.POST.get("product")
+        remove = request.POST.get("remove")
+        cart = request.session.get("cart")
+        if cart:
+            quantity = cart.get(product)
+            if quantity:
+                if remove:
+                    if quantity <= 1:
+                        cart.pop(product)
+                    else:
+                        cart[product] = quantity - 1
+                else:
+                    cart[product] = quantity + 1
+
+            else:
+                cart[product] = 1
+        else:
+            cart = {}
+            cart[product] = 1
+
+        request.session["cart"] = cart
+        print("cart", request.session["cart"])
+        print(f"{request.get_full_path()}")
+        return redirect("homepage")
+
 def store_detail(request, store_name):
     stores = Seller.objects.filter(store_name=store_name.replace('_', ' '))
     print(f"store:{stores}")
@@ -63,15 +87,6 @@ def cart(request):
 
     context = {'cart_items': cart_items, 'total_price': total_price}
     return render(request, 'cart.html', context)
-
-# @require_POST
-# def add_to_cart(request, slug):
-#     product_id = request.POST['product_id']
-#     amount = int(request.POST['amount'])
-#     product = Product.objects.get(pk=product_id)
-#     cart = cart(request)
-#     cart.add(product, amount)
-#     return redirect('cart')
 
 
 @login_required
@@ -107,8 +122,6 @@ def search(request):
 #     seller = Seller.objects.all() # assuming the user id is the same as the seller id
 #     context = {'store_name': seller.store_name}
 #     return render(request, 'chat.html', context=context)
-
-
 
 
 @login_required
