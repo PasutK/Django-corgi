@@ -40,7 +40,7 @@ class Cart(models.Model):
 class Cartitems(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True) 
-    quantity = models.IntegerField(default=0, on_delete=models.SET_NULL)
+    amount = models.IntegerField(default=0)
     date = models.DateField(default=datetime.datetime.today)
 
     def placeorder(self):
