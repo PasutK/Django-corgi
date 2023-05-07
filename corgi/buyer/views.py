@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Category, Product
 from seller.models import SellerCategory, SellerProduct, Seller
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
@@ -63,15 +62,20 @@ def cart(request):
     context = {'cart_items': cart_items, 'total_price': total_price}
     return render(request, 'cart.html', context)
 
-@require_POST
-def add_to_cart(request):
-    product_id = request.POST['product_id']
-    amount = int(request.POST['amount'])
-    product = Product.objects.get(pk=product_id)
-    cart = cart(request)
-    cart.add(product, amount)
-    return redirect('cart')
-    
+# @require_POST
+# def add_to_cart(request, slug):
+#     product_id = request.POST['product_id']
+#     amount = int(request.POST['amount'])
+#     product = Product.objects.get(pk=product_id)
+#     cart = cart(request)
+#     cart.add(product, amount)
+#     return redirect('cart')
+
+def add_to_cart(request, slug):
+    variant = request.GET.get("variant")
+    product = SellerProduct.objects.get(slug = slug)
+
+@login_required
 def checkout(request):
     if request.method == 'POST':
         cart = request.session.pop('cart', None)
@@ -87,7 +91,7 @@ def checkout(request):
 
     return render(request, 'checkout.html')
 
-
+@login_required
 def search(request):
     query = request.GET.get('q')
     if query:
