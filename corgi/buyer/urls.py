@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.urls import path,include
 from . import views
-from .views import category_detail, product_detail
+from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
-
+from .middlewares.auth import auth_middleware
 
 urlpatterns = [
     path('',views.Bhomepage,name="Homepage"),
@@ -16,8 +16,9 @@ urlpatterns = [
     # path('cart/add_to_cart/', views.add_to_cart, name='add_to_cart'),
     path('cart/checkout/', views.checkout, name='checkout'),
     path('search/', views.search, name='search'),
-    path('<str:store_name>/chat/', views.chat, name='chat')
-    
+    path('<str:store_name>/chat/', views.chat, name='chat'),
+    path('', Index.as_view(), name='homepage'),
+    path('cart', auth_middleware(Cart.as_view()) , name='cart'),
 ]
 
 if settings.DEBUG:

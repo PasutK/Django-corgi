@@ -67,6 +67,13 @@ class Index(View):
         print(f"{request.get_full_path()}")
         return redirect("homepage")
 
+class Cart(View):
+    def get(self, request):
+        ids = list(request.session.get("cart").keys())
+        products = SellerProduct.objects.filter(id=ids)
+        print(products)
+        return render(request, "cart.html", {"products": products})
+
 def store_detail(request, store_name):
     stores = Seller.objects.filter(store_name=store_name.replace('_', ' '))
     print(f"store:{stores}")
