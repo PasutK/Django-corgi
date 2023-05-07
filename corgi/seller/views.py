@@ -29,22 +29,19 @@ def register_seller(request):
 
 @login_required    
 def seller_product(request):
-    # userID = request.user.id
-    sellerID = Seller.objects.get(user__id=request.user.id)
-    products = SellerProduct.objects.filter(seller__id=sellerID.id)
-    # products = SellerProduct.objects.all()
-    print(f'products: {products}')
-    print(f'sellerID: {sellerID}')
-    if sellerID:
-        product = SellerProduct.objects.filter(seller__id=sellerID.id)
-        # seller = Seller.objects.get(id=sellerID)
+    userID = request.user.id
+    sellerID = None
+    print(userID)
+    if userID:
+        try:
+            sellerID = Seller.objects.get(user__id=request.user.id)
+            product = SellerProduct.objects.filter(seller__id=sellerID.id)
+        except:
+            product = SellerProduct.objects.all()
     else:
         product = SellerProduct.objects.all()
-    #     seller = None
     context = {
         "products": product,
-        # "sellers": sellers,
-        # "seller": seller,
         "sellerID": sellerID
     }
 

@@ -1,57 +1,18 @@
 from django.db import models
-import datetime
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html
-import re
-from seller.models import Seller #,SellerProduct
+from seller.models import Seller, SellerProduct
+from core.models import User
+import re, datetime
 
 
-class BuyerPermissions:
-    CAN_BUY = 'can_buy'
-
-def create_seller_permissions():
-    permission = Permission.objects.create(
-        codename=BuyerPermissions.CAN_BUY,
-        name='Can buy products from marketplace',
-        content_type_id=0)
-    return permission
-
-def is_valid_buyer_phone(phone):
-    """
-    Returns True if the phone number is valid, False otherwise.
-    """
-    regex = r'^\d{3}[-]?\d{3}[-]?\d{4}$'
-    return re.match(regex, phone) is not None
-
-def validate_buyer_phone(phone):
-    """
-    Validates that the phone number is a valid 10-digit phone number.
-    """
-    if not is_valid_buyer_phone(phone):
-        raise ValidationError("Please enter a valid 10-digit phone number.")
-
-def is_valid_buyer_email(email):
-    """
-    Returns True if the email address is valid, False otherwise.
-    """
-    regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    return re.match(regex, email) is not None
-
-def validate_buyer_email(email):
-    """
-    Validates that the email address is a valid email address.
-    """
-    if not is_valid_buyer_email(email):
-        raise ValidationError("Please enter a valid email address.")
-
-
-class BuyerProfile(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True, validators=[validate_buyer_email])
-    phone = models.CharField(max_length=12, validators=[validate_buyer_phone])
-    address = models.CharField(max_length=255)
+# class BuyerProfile(models.Model):
+#     first_name = models.CharField(max_length=255)
+#     last_name = models.CharField(max_length=255)
+#     email = models.EmailField(unique=True, validators=[validate_buyer_email])
+#     phone = models.CharField(max_length=12, validators=[validate_buyer_phone])
+#     address = models.CharField(max_length=255)
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -72,15 +33,15 @@ class Product(models.Model): # ต้องลบ จะเชื่อม produ
     last_update = models.DateTimeField(auto_now=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default=1)
 
-class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE) 
-    customer = models.ForeignKey(BuyerProfile, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
-    # address = models.CharField(max_length=50, default="", blank=True)
-    # phone = models.CharField(max_length=50, default="", blank=True)
+class Cart(models.Model):
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="carts")
+    is_paid = models.BooleanField(default=False)
+
+class Cartitems(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True) 
+    amount = models.IntegerField(default=0)
     date = models.DateField(default=datetime.datetime.today)
-    status = models.BooleanField(default=False)
 
     def placeorder(self):
         self.save()
@@ -88,6 +49,3 @@ class Order(models.Model):
     def __str__(self):
         return self.product,self.customer,self.quantity
     
-    @staticmethod
-    def get_orders_by_customer(customer_id):
-        return Order.objects.filter(customer = customer_id).order_by("-date")

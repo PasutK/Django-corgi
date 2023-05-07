@@ -25,8 +25,15 @@ class ProductForm(forms.ModelForm):
             'status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
     
-# เพิ่ม/แก้ไข/ลบสินค้า
-# class SellerProduct(models.Model):
+# เพิ่ม/แก้ไข
+class SellerProduct(forms.ModelForm):
+    class Meta:
+        model = SellerProduct
+        fields = ["name", "price", "category",
+                  "description", "image", "status",]
+        widgets = {
+            "description": forms.Textarea(attrs={"rows":3})
+        }
 #     name = models.CharField(max_length=100)
 #     image = models.ImageField(upload_to="seller/media/product")
 #     category = models.CharField(max_length=50)

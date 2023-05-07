@@ -49,6 +49,7 @@ class SellerProduct(models.Model):
     name = models.CharField(max_length=60)
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     category = models.ForeignKey(SellerCategory, on_delete=models.CASCADE, default=1)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
     description = models.CharField(max_length=2500)
     image = models.ImageField(upload_to="seller/media/product")
     status = models.BooleanField(default=True)
