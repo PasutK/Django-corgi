@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from homepage.views import homepage
 from .models import *
-from .forms import NewSellerForm
+from .forms import NewSellerForm, ProductForm
 from core.models import User
 
 
@@ -48,5 +48,19 @@ def seller_product(request):
     return render(request, "seller_product.html", context)
 
 @login_required
-def edit_or_add_product(request, product_id=None):
-    sellers = request.user.seller
+def add_product(request, **kwargs):
+    store_name = kwargs.get('store_name')
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.seller = request.user.seller
+            product.save()
+            return redirect('product_list')
+    else:
+        form = ProductForm()
+    context = {'form': form}
+    return render(request, 'add_product.html', context=context)
+
+
+

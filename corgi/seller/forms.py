@@ -13,6 +13,17 @@ class SellerLoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = SellerProduct
+        fields = ('name', 'image', 'category', 'price', 'status')
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
     
 # เพิ่ม/แก้ไข
 class SellerProduct(forms.ModelForm):
