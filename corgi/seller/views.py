@@ -27,17 +27,23 @@ def register_seller(request):
         form = NewSellerForm()
     return render(request, 'Sregister.html', {'form': form })
 
-def logout_seller(request):
-    logout(request)
-    messages.success(request, "You have been logged out.")
-    return render(request, 'Slogout.html', {})
-
-
+@login_required    
 def seller_product(request):
-    seller_products = SellerProduct.objects.all()
-
+    sellers = Seller.objects.all()
+    sellerID = request.GET.get("Seller")
+    print(sellerID)
+    print(sellers)
+    if sellerID:
+        product = SellerProduct.objects.filter(id__in=sellerID)
+        seller = Seller.objects.get(id=sellerID)
+    else:
+        product = SellerProduct.objects.all()
+        seller = None
     context = {
-        'seller_products': seller_products
+        "product": product,
+        "sellers": sellers,
+        "seller": seller,
+        "sellerID": sellerID
     }
 
-    return render(request, 'seller_product.html', context)
+    return render(request, "seller_product.html", context)

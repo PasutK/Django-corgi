@@ -11,7 +11,7 @@ class SellerAdmin(admin.ModelAdmin):
 # class ProductCategoryAdmin(admin.ModelAdmin):
 #     list_display = ('name', 'image')
 
-#@admin.register(SellerProduct)
-# class SellerProductAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'description', 'price', 'category', 'image', 'status')
+@admin.register(SellerProduct)
+class SellerProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'price', 'category', 'image', 'status')
 
