@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-from .models import Seller
+from .models import Seller, SellerProduct
 import re
 
 class NewSellerForm(forms.ModelForm):
@@ -14,8 +14,15 @@ class SellerLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
     
-# เพิ่ม/แก้ไข/ลบสินค้า
-# class SellerProduct(models.Model):
+# เพิ่ม/แก้ไข
+class SellerProduct(forms.ModelForm):
+    class Meta:
+        model = SellerProduct
+        fields = ["name", "price", "category",
+                  "description", "image", "status",]
+        widgets = {
+            "description": forms.Textarea(attrs={"rows":3})
+        }
 #     name = models.CharField(max_length=100)
 #     image = models.ImageField(upload_to="seller/media/product")
 #     category = models.CharField(max_length=50)
