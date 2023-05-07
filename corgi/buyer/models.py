@@ -33,13 +33,12 @@ class Product(models.Model): # ต้องลบ จะเชื่อม produ
     last_update = models.DateTimeField(auto_now=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default=1)
 
+
 class Cart(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="carts")
     is_paid = models.BooleanField(default=False)
-
-class Cartitems(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True) 
+    price = models.DecimalField(max_digits=6, decimal_places= 2)
     amount = models.IntegerField(default=0)
     date = models.DateField(default=datetime.datetime.today)
 
