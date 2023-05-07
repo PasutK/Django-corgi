@@ -7,9 +7,9 @@ class SellerAdmin(admin.ModelAdmin):
     list_display = ('store_name', 'store_image',
                     'qrcode_image', 'last_update')
 
-#@admin.register(SellerCategory)
-# class ProductCategoryAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'image')
+@admin.register(SellerCategory)
+class ProductCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'image')
 
 @admin.register(SellerProduct)
 class SellerProductAdmin(admin.ModelAdmin):

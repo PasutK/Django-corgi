@@ -39,6 +39,8 @@ def category_detail(request, category):
 def product_detail(request, category, name):
     products = SellerProduct.objects.filter(category=category, name=name.replace('_', ' '))
     context = {'products': products}
+    user = request.user.id
+    print(f'{user}')
     return render(request, 'product_detail.html', context)
 
 def store_detail(request, store_name):
@@ -71,9 +73,6 @@ def cart(request):
 #     cart.add(product, amount)
 #     return redirect('cart')
 
-def add_to_cart(request, slug):
-    variant = request.GET.get("variant")
-    product = SellerProduct.objects.get(slug = slug)
 
 @login_required
 def checkout(request):
