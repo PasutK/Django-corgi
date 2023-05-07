@@ -1,6 +1,15 @@
 {% load static %}
 
 <!DOCTYPE html>
+<style>
+  body {
+  position: absolute;
+  top: 18%;
+  width: 30%;
+  height: 20%;
+  left: 5%;
+}
+</style>
 <html>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,12 +58,45 @@
         </div>
       </nav>
 </head>
+
+
+{% block content %}
 <body>
-  <p style="position: absolute;top: 45%;left: 27%;transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);color: white;font-size: 70px;text-align: center; font-size: 30px">Let's make corgi products a love</p>
-  <p style="position: absolute;top: 55%;left: 25%;transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);color: white;font-size: 70px;text-align: center; font-size: 30px">at first sight experience for everyone!</p>
-  <img src="{% static 'media/first.jpg'%}" class='img-fluid' alt="" style='width: 100%;height: 1000px;'>
-</html><body>
+  <ul><h2>{% if product %}Edit Product{% else %}Add New Product{% endif %}</h2></ul>
+  <form method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column;">
+    {% csrf_token %}
+    {% if product %}
+      <input type="hidden" name="product_id" value="{{ product.id }}">
+    {% endif %}
+    <div style="display: flex; flex-direction: column; margin-bottom: 10px;">
+      <label for="name">Name:</label>
+      <input type="text" name="name" value="{% if product %}{{ product.name }}{% endif %}">
+    </div>
+    <div style="display: flex; flex-direction: column; margin-bottom: 10px;">
+      <label for="category">Category:</label>
+      <select name="category">
+        {% for category in categories %}
+          <option value="{{ category.id }}" {% if product and product.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div style="display: flex; flex-direction: column; margin-bottom: 10px;">
+      <label for="price">Price:</label>
+      <input type="text" name="price" value="{% if product %}{{ product.price }}{% endif %}">
+    </div>
+    <div style="display: flex; flex-direction: column; margin-bottom: 10px;">
+      <label for="image">Image:</label>
+      {% if product and product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      {% endif %}
+      <input type="file" name="image">
+    </div>
+    <div style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px;">
+      <label for="status">Status:</label>
+      <input type="checkbox" name="status" {% if product and product.status %}checked{% endif %}>
+    </div>
+    <button type="submit">{% if product %}Save{% else %}Add{% endif %} Product</button>
+  </form>
+</body>
 
-</html>
-
-
+{% endblock %}

@@ -7,4 +7,5 @@ urlpatterns = [
     path('register/', views.register_seller,name='seller-register'),
     # path('login/', views.Slogin,name='seller-login'),
     path('products/', views.seller_product, name='seller_product'),
+    path('<str:store_name>/add-product/', views.add_product, name='add_product'),
 ]
