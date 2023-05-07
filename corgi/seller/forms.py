@@ -6,44 +6,10 @@ from django.core.exceptions import ValidationError
 from .models import Seller
 import re
 
-# def is_valid_buyer_phone(phone):
-#     """
-#     Returns True if the phone number is valid, False otherwise.
-#     """
-#     regex = r'^\d{3}[-]?\d{3}[-]?\d{4}$'
-#     return re.match(regex, phone) is not None
-
-# def validate_buyer_phone(phone):
-#     """
-#     Validates that the phone number is a valid 10-digit phone number.
-#     """
-#     if not is_valid_buyer_phone(phone):
-#         raise ValidationError("Please enter a valid 10-digit phone number.")
-
-# def is_valid_buyer_email(email):
-#     """
-#     Returns True if the email address is valid, False otherwise.
-#     """
-#     regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-#     return re.match(regex, email) is not None
-
-# def validate_buyer_email(email):
-#     """
-#     Validates that the email address is a valid email address.
-#     """
-#     if not is_valid_buyer_email(email):
-#         raise ValidationError("Please enter a valid email address.")
-
-class NewSellerForm(UserCreationForm):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    username = forms.CharField(max_length=30)
+class NewSellerForm(forms.ModelForm):
     class Meta:
         model = Seller
-        # fields = [ 'email', 'password1', 'password2', 'store_name',
-        #           'first_name', 'last_name', 'phone',
-        #           'address', 'store_image', 'qrcode_image']
-        fields = [ 'store_name']
+        fields = ["store_name", "store_address", "store_image", "qrcode_image"]
 
 	
 class SellerLoginForm(forms.Form):

@@ -21,9 +21,9 @@ import re
 # sellers_group = Group.objects.create(name='Sellers')
     
 class Seller(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,max_length=100, null=False, blank=False, on_delete=models.CASCADE)
     store_name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=12)
-    address = models.CharField(max_length=300)
+    store_address = models.CharField(max_length=300,default=None)
     store_image = models.ImageField(upload_to="seller/media/store/")
     qrcode_image = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)

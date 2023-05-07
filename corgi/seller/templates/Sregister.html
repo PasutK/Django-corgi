@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <h1 class='box'>Registration</h1>
             {% csrf_token %}
             {{ form.as_p }}
