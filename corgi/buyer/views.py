@@ -5,19 +5,23 @@ from seller.models import SellerCategory, SellerProduct, Seller
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.db.models import Q
-
+import random
 # Create your views here.
 def Blogin(request):
-    return render(request, "Blogin.html",{})
+    pass
 
 def Bregister(request):
-    return render(request, "Bregister.html",{})
+    pass
 
 def Blogout(request):
     pass
 
 def Bhomepage(request):
-    return render(request, "store.html",{})
+    allproducts = SellerProduct.objects.all()
+    random_products = random.sample(list(allproducts.values_list('id',flat=True)), 9)
+    feature_product = SellerProduct.objects.filter(id__in=random_products)
+    context = {'products':feature_product}
+    return render(request, "store base.html",context)
 
 def category_list(request):
     categories = SellerCategory.objects.all()
