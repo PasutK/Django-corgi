@@ -57,4 +57,5 @@ class SellerProduct(models.Model):
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"product: {self.name} from seller: {self.seller.store_name}"
+        return f"product: {self.name}"
+        # return f"product: {self.name} from seller: {self.seller.store_name}"

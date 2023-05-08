@@ -80,6 +80,14 @@
             <h1 class="Heading">Shopping Cart</h1>
             <h5 class="Action">Remove all</h5>
         </div>
+        <div class="body">
+            <h1>product</h1>
+            {% for cart in carts %}
+                <h2>{{ cart.product }}</h2>
+                <h2>{{ cart.price }}</h2>
+                <h2>{{ cart.amount }}</h2>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>
