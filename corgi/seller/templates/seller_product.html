@@ -59,8 +59,8 @@
 {% block content %}
 <div class="card-footer">
     <p class="card-text">
-        <button type="button" class="btn btn-secondary btn-sm" style="background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Edit Product</button>
-        <button type="button" class="btn btn-secondary btn-sm" style=" background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Delete Product</button>
+        <button type="button" href="/products/add-product/" class="btn btn-secondary btn-sm" style="background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Add Product</button>
+        <button type="submit" formaction="{% url 'delete_products' %}" class="btn btn-secondary btn-sm" style="background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Delete Product</button>
     </p>
   </div>
 

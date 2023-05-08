@@ -65,11 +65,12 @@
     height: 540px;
   }
 </style>
+
 {% block content %}
 <body>
   <div class="container">
     <div class="card">
-      <div class="card-header" style="border-color: #ec9410; background-color: #ec9410;">
+      <div class="card-header" style="border-color: #f8bc63; background-color: #f8bc63;">
         <h2>{% if product %}Edit Product{% else %}Add New Product{% endif %}</h2>
       </div>
       <div class="card-body">
@@ -123,7 +124,7 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary mt-3" style="border-color: #ec9410; background-color: #ec9410;">{% if product %}Save{% else %}Add{% endif %} Product</button>
+          <button type="submit" class="btn btn-primary mt-3" style="border-color: #f8bc63; background-color: #f8bc63;">{% if product %}Save{% else %}Add{% endif %} Product</button>
         </form>
 
       </div>

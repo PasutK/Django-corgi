@@ -24,7 +24,8 @@ class ProductForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
-    
+
+
 # เพิ่ม/แก้ไข
 class SellerProduct(forms.ModelForm):
     class Meta:
