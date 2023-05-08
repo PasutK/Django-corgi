@@ -57,13 +57,7 @@
 
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-<head>
-    <title>My Cart</title>
-    
-=======
   <head>
->>>>>>> e120a74803aacf7efd53ff7e60ad648659bef629
     <style>
     .container {
         display: flex;
@@ -97,55 +91,6 @@
           cursor: pointer;
           margin-top: 20px;
         }
-<<<<<<< HEAD
-        .Cart-Items{
-            margin: auto;
-            width: 90%;
-            height: 30%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .image-box{
-            width: 15%;
-            text-align: center;
-        }
-        .about{
-            height: 100%;
-        }
-        .title{
-            padding-top: 5px;
-            line-height: 10px;
-            font-size: 32px;
-            font-family: Arial, sans-serif;
-            font-weight: 800;
-            color: #202020;
-        }
-        .subtitle{
-            line-height: 10px;
-            font-size: 18px;
-            font-family: Arial, sans-serif;
-            font-weight: 600;
-            color: #909090;
-        }
-    </style>
-</head>
-<body>
-    <div class="Cart-Container">
-        <div class="Header">
-            <h1 class="Heading">Shopping Cart</h1>
-            <h5 class="Action">Remove all</h5>
-        </div>
-        <div class="body">
-            <h1>product</h1>
-            {% for cart in carts %}
-                <h2>{{ cart.product }}</h2>
-                <img src="{{ cart.product.image.url }}" alt="" width=90 height=auto>
-                <h2>{{ cart.price }}</h2>
-                <h2>{{ cart.amount }}</h2>
-            {% endfor %}
-        </div>
-=======
 
 .summary {
     position: absolute;
@@ -162,37 +107,6 @@
   </head>
   <body>
   <h1>Shopping Cart</h1>
-  <!-- <table class="table-striped" width="300%">
-    <thead>
-      <tr>
-        <th scope="col">Image</th>
-        <th scope="col">Product</th>
-        <th scope="col">Price/Unit</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Total Price</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for cart in carts %}
-      <tr>
-        <td><img src="{{ cart.product.image.url }}" alt="" width=100 height=auto></td>
-        <td>{{ cart.product }}</td>
-        <td>฿ {{ cart.product.price }}</td>
-        <td>
-          <div class="quantity">
-            <button class="decrease">-</button>
-            <p>{{ cart.amount }}</p>
-            <button class="increase">+</button>
-          </div>
-        </td>
-        <td>฿ {{ cart.price }}</td>
-        <td><button class="remove">Remove</button></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table> -->
-
   <div class="col-md-10">
     <form method="POST">
         {% csrf_token %}
@@ -230,8 +144,8 @@
 </div>
     <h3>Total (tax included)</h3> 
     <h5>฿ {{ total }}</h5>
-    <button class="checkout">Go to Checkout</button>
->>>>>>> e120a74803aacf7efd53ff7e60ad648659bef629
+      <a class="checkout" aria-current="page" href="checkout/" style="line-height: 1.5;">Go to Checkout</a>
+
     </div>
   </div>
   

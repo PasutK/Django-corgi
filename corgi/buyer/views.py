@@ -63,31 +63,41 @@ def cart(request):
     cart_price = []
     for p in carts:
         cart_price.append(p.price)
-
     total = sum(cart_price)
-    # for cart_item in cart:
-        # print(cart_item.product)
-    # context = {'cart_items': cart_items, 'total_price': total_price}
     context = {'carts': carts,
                'total': total,}
     return render(request, 'cart.html', context)
 
-
 @login_required
 def checkout(request):
-    if request.method == 'POST':
-        cart = request.session.pop('cart', None)
+    # Get the user's name and phone number from their login data
+    buyer_name = request.user.username
+    buyer_phone = request.user.phone
+    store_name = Seller.store_name
+    store_address = Seller.store_address
+    qrcode_image = Seller.qrcode_image
+    # Retrieve the cart data
+    user = request.user.id
+    carts = Cart.objects.filter(customer=user)
+    cart_price = []
+    for p in carts:
+        cart_price.append(p.price)
+    total = sum(cart_price)
 
-        if cart:
-            for item in cart.values():
-                product = SellerProduct.objects.get(name=item['name'])
-                product.quantity -= item['quantity']
-                product.save()
+    # Define the context variables
+    context = {
+        'buyer_name': buyer_name,
+        'buyer_phone_number': buyer_phone,
+        'store_name': store_name,
+        'store_address': store_address,
+        'qrcode_image': qrcode_image,
+        'carts': carts,
+        'total': total,
+    }
 
-            # transaction = Transaction.objects.create(user=request.user, cart=cart)
-            # return redirect('thank_you')
+    return render(request, 'checkout.html', context)
 
-    return render(request, 'checkout.html')
+
 
 @login_required
 def search(request):
