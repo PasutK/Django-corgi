@@ -4,8 +4,11 @@ from seller.models import SellerCategory, SellerProduct, Seller
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.db.models import Q
+from .forms import *
+from core.models import User
 import random
 from django.views import View
+from decimal import Decimal
 # Create your views here.
 
 def Bhomepage(request):
@@ -31,41 +34,21 @@ def category_detail(request, category):
 
 def product_detail(request, category, name):
     products = SellerProduct.objects.filter(category=category, name=name.replace('_', ' '))
+    sellerproduct = products.first()
+    productprice = sellerproduct.price
+    product = get_object_or_404(SellerProduct, pk=sellerproduct.id)
     context = {'products': products}
     user = request.user.id
-    print(f'{user}')
+    customer = get_object_or_404(User, pk=user)
+    print(product,customer)
+    form = AddtoCart(request.POST)
+    if request.method == "POST":
+        quantity = request.POST.get("amount")
+        price = productprice * Decimal(quantity)
+        add_to_cart = Cart(product=product, price=price, amount=quantity, customer=customer)
+        add_to_cart.save()
+        context = {'products': products, 'form':form}
     return render(request, 'product_detail.html', context)
-
-class Index(View):
-    def get(self, request):
-        print(f"1.{request.get_full_path()}")
-        return HttpResponseRedirect(f'store'+f"{request.get_full_path().split('buyers/')[1]}")
-    
-    def post(self, request):
-        product = request.POST.get("product")
-        remove = request.POST.get("remove")
-        cart = request.session.get("cart")
-        if cart:
-            quantity = cart.get(product)
-            if quantity:
-                if remove:
-                    if quantity <= 1:
-                        cart.pop(product)
-                    else:
-                        cart[product] = quantity - 1
-                else:
-                    cart[product] = quantity + 1
-
-            else:
-                cart[product] = 1
-        else:
-            cart = {}
-            cart[product] = 1
-
-        request.session["cart"] = cart
-        print("cart", request.session["cart"])
-        print(f"{request.get_full_path()}")
-        return redirect("homepage")
 
 def store_detail(request, store_name):
     stores = Seller.objects.filter(store_name=store_name.replace('_', ' '))
@@ -75,17 +58,12 @@ def store_detail(request, store_name):
 
 @login_required
 def cart(request):
-    cart_items = []
-    total_price = 0  # Define total_price outside of the if block
-
-    if 'cart' in request.session:
-        cart = request.session.get('cart', {})
-
-        for item in cart.values():
-            cart_items.append(item)
-            total_price += item['total_price']
-
-    context = {'cart_items': cart_items, 'total_price': total_price}
+    user = request.user.id
+    carts = Cart.objects.filter(customer=user)
+    # for cart_item in cart:
+        # print(cart_item.product)
+    # context = {'cart_items': cart_items, 'total_price': total_price}
+    context = {'carts': carts}
     return render(request, 'cart.html', context)
 
 

@@ -61,12 +61,14 @@
                     </form> -->
                     <form method="post">
                       {% csrf_token %}
+                      {% comment %} {{ form.as_p }} {% endcomment %}
                       <input type="hidden" name="product_id" value="{{ product.id }}">
                       <input type="hidden" name="price" value="{{ product.price }}">
-                      <label for="quantity">Quantity:</label>
-                      <input type="number" name="quantity" value="1" min="1">
+                      <label for="amount">Quantity:</label>
+                      <input type="number" name="amount" value="1" min="1">
                       <button type="submit" class="btn btn-primary">Add to cart</button>
                     </form>
+                  </br>
                     <a class="btn btn-secondary" href="/store/categories">Continue Shopping</a>
                   </div>
                 </div>
