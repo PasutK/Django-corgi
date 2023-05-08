@@ -60,10 +60,16 @@ def store_detail(request, store_name):
 def cart(request):
     user = request.user.id
     carts = Cart.objects.filter(customer=user)
+    cart_price = []
+    for p in carts:
+        cart_price.append(p.price)
+
+    total = sum(cart_price)
     # for cart_item in cart:
         # print(cart_item.product)
     # context = {'cart_items': cart_items, 'total_price': total_price}
-    context = {'carts': carts}
+    context = {'carts': carts,
+               'total': total,}
     return render(request, 'cart.html', context)
 
 
