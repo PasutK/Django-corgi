@@ -63,7 +63,7 @@
       <li class="list-group-item">     
         {% if product.seller %}
           <p>Store name: {{ product.seller.store_name }} Store</p>
-          <p>Address: {{ product.seller.address }}</p>
+          <p>Address: {{ product.seller.store_address }}</p>
         {% else %}
           <p>No seller information available</p>
         {% endif %}

@@ -35,16 +35,12 @@
           <p class="card-text">{{ product.category.name }}</p>
           <p class="card-text">{{ product.description }}</p>
           <p class="card-text">Price: {{ product.price }} ฿</p>
-          <p class="card-text">Store name: {{ product.seller.store_name }} Store</p>
+          <p class="card-text">Store name: {{ product.seller.store_name }}</p>
           <p class="card-text">Address: {{ product.seller.store_address }}</p>
         </div>
         <div class="card-footer">
           <p class="card-text">
-            <button type="button" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;" data-bs-toggle="modal" data-bs-target="#Add-to-Cart-modal-{{ product.id }}">Add to Cart</button>
-            
-            <!-- store พังอยู่ลิ้งไม่ได้จ้าาาาา -->
-            <!-- <button type="button" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;" >Go to Store</button> -->
-            <a href="{% url 'store_detail' store_name=product.seller.store_name %}" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Go to Store</a>
+            <button type="button" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63; border-color:#f8bc63; padding:15px;" data-bs-toggle="modal" data-bs-target="#Add-to-Cart-modal-{{ product.id }}">Edit Ptoduct</button>
             <div class="modal fade" id="Add-to-Cart-modal-{{ product.id }}" tabindex="-1" aria-labelledby="Add-to-Cart-modal-{{ product.id }}" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -61,14 +57,12 @@
                     </form> -->
                     <form method="post">
                       {% csrf_token %}
-                      {% comment %} {{ form.as_p }} {% endcomment %}
                       <input type="hidden" name="product_id" value="{{ product.id }}">
                       <input type="hidden" name="price" value="{{ product.price }}">
-                      <label for="amount">Quantity:</label>
-                      <input type="number" name="amount" value="1" min="1">
+                      <label for="quantity">Quantity:</label>
+                      <input type="number" name="quantity" value="1" min="1">
                       <button type="submit" class="btn btn-primary">Add to cart</button>
                     </form>
-                  </br>
                     <a class="btn btn-secondary" href="/store/categories">Continue Shopping</a>
                   </div>
                 </div>

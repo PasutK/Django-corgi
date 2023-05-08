@@ -62,5 +62,19 @@ def add_product(request, **kwargs):
     context = {'form': form}
     return render(request, 'add_product.html', context=context)
 
+def sproduct_detail(request, name):
+    products = SellerProduct.objects.filter(name=name.replace('_', ' '))
+    context = {'products': products}
+    user = request.user.id
+    print(f'{user}')
+    return render(request, 'sproduct_detail.html', context)
+
+def delete_products(request):
+    if request.method == 'POST':
+        product_ids = request.POST.getlist('products[]')
+        SellerProduct.objects.filter(id__in=product_ids).delete()
+        return redirect('seller_product')
+    else:
+        return render(request, 'seller_product.html')
 
 
