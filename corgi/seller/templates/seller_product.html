@@ -38,7 +38,7 @@
                   <a class="nav-link active" aria-current="page" href="#">My Profile Setting</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Manage My Store</a>
+                  <a class="nav-link" href="/seller/products">Manage My Store</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#">Inbox</a>
@@ -59,7 +59,7 @@
 {% block content %}
 <div class="card-footer">
     <p class="card-text">
-        <button type="button" href="/products/add-product/" class="btn btn-secondary btn-sm" style="background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Add Product</button>
+        <a href="/seller/add-products/" class="btn btn-secondary btn-sm" style="background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Add Product</a>
         <button type="submit" formaction="{% url 'delete_products' %}" class="btn btn-secondary btn-sm" style="background-color: #f8bc63; border-color:#f8bc63; padding:15px;">Delete Product</button>
     </p>
   </div>
@@ -67,8 +67,8 @@
 
     
 <div class="col-md-10">
-    <form method="POST">
-        {% csrf_token %}
+    {% comment %} <form method="POST"> {% endcomment %}
+        {% comment %} {% csrf_token %} {% endcomment %}
         <table class="table table-striped" style="width: 350%;">
             <thead>
                 <tr>
@@ -84,7 +84,7 @@
                 {% for product in products %}
                 <tr>
                     <td><input type="checkbox" name="products[]" value="{{ product.id }}"></td>
-                    <td>{{ product.name }}</td>
+                    <td><a href="/seller/edit-products/{{product.id}}">{{ product.name }}</a></td>
                     <td><img src="{{ product.image.url }}" alt="{{ product.name }}" width="100" height="100"></td>
                     <td>{{ product.category }}</td>
                     <td>{{ product.price }}</td>
@@ -93,7 +93,7 @@
                 {% endfor %}
             </tbody>
         </table>
-    </form>
+    {% comment %} </form> {% endcomment %}
 </div>
 {% endblock %}
 

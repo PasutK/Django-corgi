@@ -55,31 +55,18 @@
       </nav>
 </head>
 
-
-<style>
-  .navbar-nav li a {
-    font-size: 18px; /* adjust the font size as desired */
-  }
-  .card {
-    width: 1200px;
-    height: 540px;
-  }
-</style>
-
-{% block content %}
 <body>
+{% block content %}
   <div class="container">
-    <div class="card">
+    <div class="card" style="width: 1200px; height: 660px;">
       <div class="card-header" style="border-color: #f8bc63; background-color: #f8bc63;">
         <h2>{% if product %}Edit Product{% else %}Add New Product{% endif %}</h2>
       </div>
       <div class="card-body">
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          {% if product %}
-            <input type="hidden" name="product_id" value="{{ product.id }}">
-          {% endif %}
-          <div class="row">
+          {{ form.as_p }}
+          {% comment %} <div class="row">
             <div class="col-md-6">
               <label for="name" class="form-label">Name:</label>
               <input type="text" class="form-control" name="name" value="{% if product %}{{ product.name }}{% endif %}">
@@ -87,8 +74,9 @@
             <div class="col-md-6">
               <label for="category" class="form-label">Category:</label>
               <select class="form-select" name="category">
+                <option selected disabled value="">Choose...</option>
                 {% for category in categories %}
-                  <option value="{{ category.id }}" {% if product and product.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                  <option value="{{ category.id }}">{{ category.name }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -123,16 +111,16 @@
                 <input type="file" class="form-control" name="image">
               </div>
             </div>
-          </div>
+          </div> {% endcomment %}
           <button type="submit" class="btn btn-primary mt-3" style="border-color: #f8bc63; background-color: #f8bc63;">{% if product %}Save{% else %}Add{% endif %} Product</button>
+
         </form>
 
       </div>
     </div>
   </div>        
   <!-- <img src="{% static 'media/add.jpg' %}" alt="Add Image" class="img-thumbnail" style='width: 400px;height: 400px;position: absolute;top: 130%;right: -100%;transform: translateY(-50%);'> -->
-
+  {% endblock %}
 </body>
-{% endblock %}
-
+</html>
 

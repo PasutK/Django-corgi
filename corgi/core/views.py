@@ -17,7 +17,7 @@ def userlogin(request):
         if user is not None:
             login(request,user)
             messages.success(request,"Login successful. Enjoy Corgi!")
-            return redirect(userprofile)
+            return redirect(homepage)
         else:
             messages.success(request,"Wrong Username or Password, please try again")
             return redirect(userlogin)

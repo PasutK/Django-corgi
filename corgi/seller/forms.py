@@ -14,27 +14,42 @@ class SellerLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 class ProductForm(forms.ModelForm):
+    # STATUS_CHOICES = (
+    #     (True, 'Active'),
+    #     (False, 'Out of stock')
+    # )
+    
+    # status = forms.ChoiceField(choices=STATUS_CHOICES, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
     class Meta:
         model = SellerProduct
-        fields = ('name', 'image', 'category', 'price', 'status')
+        fields = ['name', 'category', 'description', 'quantity', 'price', 'image', 'status']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.TextInput(attrs={'class': 'form-control','rows': 5}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
-
-# เพิ่ม/แก้ไข
-class SellerProduct(forms.ModelForm):
+class EditProductForm(forms.ModelForm):
     class Meta:
         model = SellerProduct
-        fields = ["name", "price", "category",
-                  "description", "image", "status",]
+        fields = ['name', 'category', 'description', 'quantity', 'price', 'image', 'status']
         widgets = {
-            "description": forms.Textarea(attrs={"rows":3})
+            'description': forms.Textarea(attrs={'rows': 3})
         }
+
+# เพิ่ม/แก้ไข
+# class SellerProduct(forms.ModelForm):
+#     class Meta:
+#         model = SellerProduct
+#         fields = ["name", "price", "category",
+#                   "description", "image", "status",]
+#         widgets = {
+#             "description": forms.Textarea(attrs={"rows":3})
+#         }
 #     name = models.CharField(max_length=100)
 #     image = models.ImageField(upload_to="seller/media/product")
 #     category = models.CharField(max_length=50)

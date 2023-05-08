@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>My Cart</title>
+    
     <style>
         body{
             margin: 0;
@@ -84,6 +85,7 @@
             <h1>product</h1>
             {% for cart in carts %}
                 <h2>{{ cart.product }}</h2>
+                <img src="{{ cart.product.image.url }}" alt="" width=90 height=auto>
                 <h2>{{ cart.price }}</h2>
                 <h2>{{ cart.amount }}</h2>
             {% endfor %}

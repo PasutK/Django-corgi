@@ -1,17 +1,29 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from homepage.views import homepage
 from .models import *
-from .forms import NewSellerForm, ProductForm
+from .forms import NewSellerForm, ProductForm, EditProductForm
 from core.models import User
 
 
 @login_required
 def sbase(request):
-    return render(request, "Sbase.html", {})
+    user = request.user.id
+    print(user)
+    try:
+        seller = Seller.objects.filter(user_id=user).first().user_id
+        print(seller)
+    except:
+        seller=None
+    if user == seller:
+        return render(request, "Sbase.html", {})
+    else:
+        return redirect("/seller/register")
+
+
 
 @login_required    
 def register_seller(request):
@@ -48,19 +60,38 @@ def seller_product(request):
     return render(request, "seller_product.html", context)
 
 @login_required
-def add_product(request, **kwargs):
-    store_name = kwargs.get('store_name')
-    if request.method == 'POST':
+def add_product(request):
+    categories = SellerCategory.objects.all()
+    if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
+            print('valid')
             product = form.save(commit=False)
             product.seller = request.user.seller
             product.save()
-            return redirect('product_list')
+            return redirect("seller/products")
     else:
         form = ProductForm()
-    context = {'form': form}
-    return render(request, 'add_product.html', context=context)
+    context = {
+        "form": form,
+        "categories":categories
+        }
+    return render(request, "add_product.html", context)
+    # for c in categories:
+    #     print(c.name)
+    # if request.method == "POST":
+    #     name = request.POST.get('name')
+    #     category = request.POST.get("category")
+    #     price = request.POST.get("price")
+    #     status = request.POST.get("status")
+    #     description = request.POST.get("description")
+    #     image = request.POST.get("image")
+    #     print(name)
+    #     print(category)
+    #     print(price)
+    #     print(status)
+    #     print(description)
+    #     print(image)
 
 def sproduct_detail(request, name):
     products = SellerProduct.objects.filter(name=name.replace('_', ' '))
@@ -78,3 +109,17 @@ def delete_products(request):
         return render(request, 'seller_product.html')
 
 
+def edit_product(request, id):
+    category = SellerCategory.objects.all()
+    product = get_object_or_404(SellerProduct, pk=id, seller=request.user.seller)
+    if request.method == "POST":
+        print(product)
+        form = EditProductForm(request.POST,request.FILES,instance=product)
+    else:
+        form = EditProductForm(instance=product)
+    context = {
+        "products": product,
+        "form": form,
+        "categories": category,
+    }
+    return render(request, "edit_product.html", context)
