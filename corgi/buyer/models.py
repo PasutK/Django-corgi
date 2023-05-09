@@ -30,3 +30,7 @@ class CartOrder(models.Model):
     order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
 # class Order(models.Model):
 #     order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
+
+class Slip(models.Model):
+    order = models.ForeignKey(Order,)
+    product = models.ForeignKey(SellerProduct, on_delete=models.CASCADE)

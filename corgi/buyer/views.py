@@ -8,10 +8,11 @@ from .forms import *
 from core.forms import FormRegistration
 import random
 from core.models import User
-from django.utils import timezone
 from django.views import View
 from decimal import Decimal
-from .models import CartOrder
+# from .models import CartOrder
+from .models import *
+# from seller.models import Seller
 # Create your views here.
 
 def Bhomepage(request):
@@ -88,24 +89,26 @@ def cart(request):
 
 @login_required
 def checkout(request):
-    # Get the user's name and phone number from their login data
-    buyer_name = request.user.username
-    buyer_phone = request.user.phone
-    store_name = Seller.store_name
-    store_address = Seller.store_address
-    qrcode_image = Seller.qrcode_image
-    # Retrieve the cart data
-    user = request.user.id
+    user = request.user
+    buyer_firstname = user.first_name
+    buyer_lastname = user.last_name
+    buyer_phone = user.phone
+    
+    seller = Seller.objects.first()  
+    store_name = seller.store_name
+    store_address = seller.store_address
+    qrcode_image = seller.qrcode_image
+    
     carts = Cart.objects.filter(customer=user)
     cart_price = []
     for p in carts:
         cart_price.append(p.price)
     total = sum(cart_price)
 
-    # Define the context variables
     context = {
-        'buyer_name': buyer_name,
-        'buyer_phone_number': buyer_phone,
+        'buyer_firstname': buyer_firstname,
+        'buyer_lastname': buyer_lastname,
+        'buyer_phone': buyer_phone,
         'store_name': store_name,
         'store_address': store_address,
         'qrcode_image': qrcode_image,
@@ -114,6 +117,7 @@ def checkout(request):
     }
 
     return render(request, 'checkout.html', context)
+
 
 
 
