@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.db.models import Q
 from .forms import *
+from core.forms import FormRegistration
 import random
 from core.models import User
 from django.utils import timezone
@@ -174,18 +175,18 @@ def payment_status(request):
     return render(request, 'payment_status.html', context)
 
 
-@login_required
+login_required
 def edit_profile(request):
     userid = request.user.id
     userprofile = User.objects.filter(pk=userid).first()
     context = {'user': userprofile}
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=userprofile)
+        form = FormRegistration(request.POST, instance=userprofile)
         if form.is_valid():
             form.save()
-            return redirect('profile_user')
+            return redirect('edit_profile')
     else:
-        form = EditProfileForm(instance=userprofile)
+        form = FormRegistration(instance=userprofile)
     context = {
         'form': form,
     }

@@ -5,19 +5,32 @@
 </br>
 </br>
 </br>
-<section class="pt-5 pb-5">
-  <div class="card text-center" style="">
-    <div class="card-header">
-      <h1 style="color: black;">Edit Seller Profile</h1>
-      <div class="container">
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ form.as_p }} 
-          <button type="submit" class="btn btn-primary">Make Change</button>
-          <a href="/seller/store-profile" class="btn btn-bg-secondary">Back</a>
-        </form>
+</br>
+</br>
+<div class="container">
+  <div class="card p-5">
+    <h1 class="mb-5">Edit Store Profile</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="{{ form.store_name.id_for_label }}" class="form-label">Store Name</label>
+        {{ form.store_name }}
       </div>
-    </div>
+      <div class="mb-3">
+        <label for="{{ form.store_address.id_for_label }}" class="form-label">Store Address</label>
+        {{ form.store_address }}
+      </div>
+      <div class="mb-3">
+        <label for="{{ form.store_image.id_for_label }}" class="form-label">Store Image</label>
+        {{ form.store_image }}
+      </div>
+      <div class="mb-3">
+        <label for="{{ form.qrcode_image.id_for_label }}" class="form-label">QR Code Image</label>
+        {{ form.qrcode_image }}
+      </div>
+      <button type="submit" class="btn btn-primary" style="background-color: #faac36; border-color: #faac36;">Make Change</button>
+      <a href="/seller/store-profile" class="btn btn-bg-secondary" style="background-color: lightgrey; border-color: lightgrey;">Back</a>
+    </form>
   </div>
-</section>
+</div>
 {% endblock %}
