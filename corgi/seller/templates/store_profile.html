@@ -1,0 +1,28 @@
+{% extends "Sbase.html" %}
+
+{% block content %}
+</br>
+</br>
+</br>
+</br>
+<section class="pt-5 pb-5">
+<div class="card text-center" style="">
+    <div class="card-header">
+      <h1 style="color:#faac36;">Store Profile</h1>
+    </div>
+    <div class="card-body">
+      <h3 class="card-title">{{ seller.store_name }}</h3>
+      <h5 class="card-title">by {{ user.first_name }} {{ user.last_name }}</h5>
+    </br>
+      <p class="card-text">Address: {{ seller.store_address }}</p>
+      <p class="card-text">Store Phone number: {{ seller.store_phone }}</p>
+      <div class="text-center">
+      <img src="{{ seller.store_image.url }}" class="rounded" alt="/media/{{ seller.store_image }}" width='300' height='300'>
+      <img src="{{ seller.qrcode_image.url }}" class="rounded" alt="{{ seller.qrcode_image }}" width='300' height='300'>
+      </div>
+    </br>
+      <a href="edit-profile" class="btn btn-primary">Edit Store Profile</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

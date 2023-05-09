@@ -1,6 +1,11 @@
+{% extends "Sbase.html" %}
 {% load static %}
+{% block title %}
+<title> View Payment </title>
+{% endblock %}
 
-<!DOCTYPE html>
+
+{% comment %} <!DOCTYPE html>
 <html>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +35,7 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="">My Profile Setting</a>
+                  <a class="nav-link active" aria-current="page" href="/seller/store-profile"> My Profile Setting</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/seller/products">Manage My Store</a>
@@ -48,7 +53,7 @@
           </div>
         </div>
       </nav>
-</head>
+</head> {% endcomment %}
 
 {% block content %}
   <div class="container mt-5">

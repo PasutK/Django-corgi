@@ -1,0 +1,23 @@
+{% extends "Sbase.html" %}
+
+{% block content %}
+</br>
+</br>
+</br>
+</br>
+<section class="pt-5 pb-5">
+  <div class="card text-center" style="">
+    <div class="card-header">
+      <h1 style="color: black;">Edit Seller Profile</h1>
+      <div class="container">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }} 
+          <button type="submit" class="btn btn-primary">Make Change</button>
+          <a href="/seller/store-profile" class="btn btn-bg-secondary">Back</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

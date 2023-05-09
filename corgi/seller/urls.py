@@ -1,6 +1,8 @@
 from django.urls import path, include
 from . import views
 from .views import *
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', views.sbase,name='seller-homepage'),
@@ -9,8 +11,12 @@ urlpatterns = [
     path('products/<str:sellerproduct>/', views.sproduct_detail, name='sproduct_detail'),
     path('add-products/', views.add_product, name='add_product'),
     path('edit-products/<int:id>/', views.edit_product, name='edit_product'),
-    path('edit-profile/', views.edit_seller, name='edit_profile'),
+    path('store-profile/', views.store_profile, name='store_profile'),
+    path('store-profile/edit-profile/', views.edit_store, name='edit_profile'),
 
     # path('delete-products/', views.delete_products, name='delete_products'),
     path('payment-overview/', views.payment_overview, name='payment_overview'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

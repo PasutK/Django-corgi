@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from homepage.views import homepage
 from .models import *
-from .forms import NewSellerForm, ProductForm, EditProductForm
+from .forms import NewSellerForm, ProductForm, EditProductForm, SellerProfile
 from core.models import User
 from buyer.models import Cart
 
@@ -38,10 +38,32 @@ def register_seller(request):
     return render(request, 'Sregister.html', {'form': form })
 
 @login_required    
-def edit_seller(request):
+def store_profile(request):
+    userid = request.user.id
+    username = User.objects.get(id=userid)
+    seller = get_object_or_404(Seller, user_id=userid)
+    context = {"seller":seller,
+               "user": username}
+    return render(request, "store_profile.html", context)
 
-    context = {}
-    return render(request, "edit_profile.html", context)
+@login_required    
+def edit_store(request):
+    user = request.user.id
+    try:
+        seller = get_object_or_404(Seller, user_id=user)
+        print(seller)
+        form = SellerProfile(instance=seller)
+        context = {'form': form }
+        if request.method == "POST":
+            form = SellerProfile(request.POST, request.FILES, instance=seller)
+            if form.is_valid():
+                print('valid')
+                form.save()
+        return render(request, "edit_store.html", context)
+    except:
+        context = {}
+    return render(request, "edit_store.html", context)
+
 
 @login_required    
 def seller_product(request): # view seller product
@@ -102,6 +124,8 @@ def edit_product(request, id):
     if request.method == "POST":
         print(product)
         form = EditProductForm(request.POST,request.FILES,instance=product)
+        if form.is_valid():
+            form.save()
     else:
         form = EditProductForm(instance=product)
     context = {
