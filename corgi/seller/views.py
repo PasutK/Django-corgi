@@ -5,9 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from homepage.views import homepage
 from .models import *
+from buyer.models import CartOrder, Cart, Slip
 from .forms import NewSellerForm, ProductForm, EditProductForm, SellerProfile
 from core.models import User
-from buyer.models import Cart
 
 @login_required
 def sbase(request): # Seller Homepage
@@ -134,10 +134,58 @@ def edit_product(request, id):
     }
     return render(request, "edit_product.html", context)
 
+@login_required
+# def order_status(request, order_id):
+#     order = get_object_or_404(CartOrder, order=order_id)
+#     customer = order.customer
+#     carts = Cart.objects.filter(customer=customer)
+#     cart_items = []
+#     for cart in carts:
+#         cart_items.append({
+#             'product': cart.product.name,
+#             'quantity': cart.quantity,
+#             'price': cart.price
+#         })
+#     total_cost = order.total_cost
+#     slip = Slip.objects.filter(order=order).last()
+    
+#     return render(request, 'seller/order_status.html', {
+#         'order_id': order_id,
+#         'customer_name': f'{customer.first_name} {customer.last_name}',
+#         'customer_phone': customer.phone,
+#         'customer_email': customer.email,
+#         'cart_items': cart_items,
+#         'total_cost': total_cost,
+#         'slip': slip
+#     })
 
-def payment_overview(request):
-    orders = Cart.objects.all()
+def order_status(request):
+    cust = request.user
+    buyer_firstname = cust.first_name
+    buyer_lastname = cust.last_name
+    buyer_phone = cust.phone
+
+    slip = Slip.objects.first()  
+    qrcode_image = slip.slip_image
+
+    user = request.user.id
+    carts = Cart.objects.filter(customer=user)
+    cart_items = len(carts)
+    cart_price = []
+    for p in carts:
+        cart_price.append(p.price) 
+    total = sum(cart_price)
+    order = CartOrder.objects.filter(customer_id=user, is_paid=False)
+    orderID = order.last()
+
+    # return render(request, 'seller/order_status.html', 
     context = {
-        'orders': orders,
+        'order_id': orderID.order,
+        'buyer_firstname': buyer_firstname,
+        'buyer_lastname': buyer_lastname,
+        'buyer_phone': buyer_phone,
+        'qrcode_image': qrcode_image,
+        'cart_items': cart_items,
+        'total_price': total,
     }
-    return render(request, 'payment_overview.html', context)
+    return render(request, 'order_status.html', context)

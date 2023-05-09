@@ -1,0 +1,56 @@
+{% extends "Sbase.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Order Details</h2>
+    </div>
+    <div class="card-body">
+      {% if order_id %}
+      <p><strong>Order ID:</strong> {{ order_id }}</p>
+      <p><strong>Customer Name:</strong> {{ buyer_firstname }} {{ buyer_lastname }}</p>
+      <p><strong>Customer Phone:</strong> {{ buyer_phone }}</p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cart in carts %}
+          <tr>
+            <td>{{ cart.product.name }}</td>
+            <td>{{ cart.quantity }}</td>
+            <td>{{ cart.price }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p><strong>Total Cost:</strong> {{ total_price }}</p>
+      {% else %}
+      <p>No order found.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if qrcode_image %}
+  <div class="card mt-5">
+    <div class="card-header">
+      <h2>Payment Receipt</h2>
+    </div>
+    <div class="card-body">
+      <img src="{{ qrcode_image.url }}" alt="Payment Receipt" class="img-fluid">
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
