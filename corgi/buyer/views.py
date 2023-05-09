@@ -106,7 +106,8 @@ def checkout(request):
     
     order = CartOrder.objects.filter(customer_id=user.id, is_paid=False)
     orderID = order.last()
-
+    print(orderID.order)
+    print(user.id)
     carts = Cart.objects.filter(customer=user)
     cart_price = []
     for p in carts:
@@ -114,8 +115,11 @@ def checkout(request):
     total = sum(cart_price)
 
     if request.method == "POST":
-        slip_pic = request.POST.get("receipt")
-        Slip.objects.create(slip_image=slip_pic,order_id=orderID,customer_id=user.id)
+        slip_pic = request.FILES.get("receipt")
+        if slip_pic:
+            slip = Slip.objects.create(slip_image=slip_pic,order_id=orderID.order,customer_id=user.id)
+            slip.save()
+            return redirect(payment_status)
 
     context = {
         'buyer_firstname': buyer_firstname,
@@ -150,7 +154,8 @@ def payment_status(request):
     for p in carts:
         cart_price.append(p.price) 
     total = sum(cart_price)
-
+    order = CartOrder.objects.filter(customer_id=user, is_paid=False)
+    orderID = order.last()
     # Retrieve payment status for each order
     # pending_orders = carts.filter(status='Pending')
     # completed_orders = carts.filter(status='Completed')
@@ -158,7 +163,7 @@ def payment_status(request):
 
     # Define the context variables
     context = {
-        'order_id': '123456',  # Replace with actual order ID
+        'order_id': orderID.order,  # Replace with actual order ID
         'order_date': timezone.now(),  # Get current date
         'cart_items': cart_items,
         'total_price': total,

@@ -33,7 +33,7 @@ class CartOrder(models.Model):
 #     order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
 
 class Slip(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     is_paid = models.BooleanField(default=False)
     slip_image = models.ImageField(upload_to="buyer/media/slip/", blank=False)

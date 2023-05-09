@@ -7,7 +7,26 @@
 </br>
 </br>
 </br>
+<div class="container mt-5">
+</br>
+    {% for o in order %}
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h2>Order Status:</h2>
+            </div>
+            <div class="card-body">
+              <p>Order ID: {{ o.order }}</p>
+              <p>Number of Items: {{ cart_items }}</p>
+              <p>Total Price: {{ total_price }} ฿</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </br>
 
+</div>
 
 
 
