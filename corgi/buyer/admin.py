@@ -8,6 +8,6 @@ class CartAdmin(admin.ModelAdmin):
 @admin.register(CartOrder)
 class CartOrderAdmin(admin.ModelAdmin):
     list_display = ('order','customer')
-@admin.register(Order)
-class CartOrderAdmin(admin.ModelAdmin):
-    list_display = ('order','customer')
+# @admin.register(Order)
+# class CartOrderAdmin(admin.ModelAdmin):
+#     list_display = ('order','customer')
