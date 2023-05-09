@@ -124,9 +124,6 @@ def checkout(request):
 
     return render(request, 'checkout.html', context)
 
-
-
-
 @login_required
 def search(request):
     query = request.GET.get('q')
