@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('date','product','price','customer','amount','is_paid')
+    list_display = ('date','product','price','customer','amount')
 @admin.register(CartOrder)
 class CartOrderAdmin(admin.ModelAdmin):
     list_display = ('order','customer')

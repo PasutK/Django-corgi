@@ -105,11 +105,18 @@ def checkout(request):
     store_address = seller.store_address
     qrcode_image = seller.qrcode_image
     
+    order = CartOrder.objects.filter(customer_id=user.id, is_paid=False)
+    orderID = order.last()
+
     carts = Cart.objects.filter(customer=user)
     cart_price = []
     for p in carts:
         cart_price.append(p.price)
     total = sum(cart_price)
+
+    if request.method == "POST":
+        slip_pic = request.POST.get("receipt")
+        Slip.objects.create(slip_image=slip_pic,order_id=orderID,customer_id=user.id)
 
     context = {
         'buyer_firstname': buyer_firstname,
@@ -137,28 +144,6 @@ def search(request):
     else:
         products = SellerProduct.objects.all()
     return render(request, 'search.html', {'products': products})
-
-# def payment_status(request):
-#     # Retrieve the order information from the database
-#     user = request.user.id
-#     carts = Cart.objects.filter(customer=user)
-#     cart_items = len(carts)
-#     cart_price = []
-#     for p in carts:
-#         cart_price.append(p.price) 
-#     total = sum(cart_price)
-
-#     # Define the context variables
-#     context = {
-#         'order_id': '123456',  # Replace with actual order ID
-#         'order_date': 'May 9, 2023',  # Replace with actual order date
-#         'cart_items': cart_items,
-#         'total_price': total,
-#         'payment_status': 'Pending',  # Replace with actual payment status
-#     }
-
-#     return render(request, 'payment_status.html', context)
-
 
 def payment_status(request):
     # Retrieve the order information from the database
@@ -189,7 +174,7 @@ def payment_status(request):
     return render(request, 'payment_status.html', context)
 
 
-login_required
+@login_required
 def edit_profile(request):
     userid = request.user.id
     userprofile = get_object_or_404(User,id=userid)

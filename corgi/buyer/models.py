@@ -8,7 +8,7 @@ import re, datetime
 
 
 class Cart(models.Model):
-    is_paid = models.BooleanField(default=False)
+    # is_paid = models.BooleanField(default=False)
     product = models.ForeignKey(SellerProduct, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
@@ -26,11 +26,14 @@ class Order(models.Model):
     order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
 
 class CartOrder(models.Model):
+    is_paid = models.BooleanField(default=False)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
 # class Order(models.Model):
 #     order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
 
 class Slip(models.Model):
-    order = models.ForeignKey(Order,)
-    product = models.ForeignKey(SellerProduct, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_paid = models.BooleanField(default=False)
+    slip_image = models.ImageField(upload_to="buyer/media/slip/", blank=False)
