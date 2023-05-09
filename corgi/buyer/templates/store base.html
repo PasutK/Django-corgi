@@ -20,17 +20,17 @@
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-{% block nav %}
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/" style="color: #595959;">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959;">Categories</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="" style="color: #595959";>Chat with Corgi</a>
-    </li>
-{% endblock %}
+            {% block nav %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959";>Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/store/cart/checkout/payment-status/" style="color: #595959";>Order Status</a>
+            </li>
+            {% endblock %}
         </ul>
     </div>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -45,7 +45,7 @@
   </li>
   
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/store/login" style="color: #595959";>login</a>
+    <a class="nav-link active" aria-current="page" href="/store/edit_profile/" style="color: #595959";>My Profile</a>
   </li>
 {% endblock %}
     </ul>

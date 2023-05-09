@@ -7,6 +7,7 @@ from homepage.views import homepage
 from .models import *
 from .forms import NewSellerForm, ProductForm, EditProductForm
 from core.models import User
+from buyer.models import Cart
 
 @login_required
 def sbase(request): # Seller Homepage
@@ -131,9 +132,6 @@ def edit_product(request, id):
         "categories": category,
     }
     return render(request, "edit_product.html", context)
-
-
-from buyer.models import Cart
 
 
 def payment_overview(request):
