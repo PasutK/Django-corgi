@@ -2,23 +2,26 @@
 
 {% block nav %}
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="/" style="color: #595959;">Home</a>
+  <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959;">Categories</a>
+  <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959";>Categories</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="" style="color: #595959";>Chat with Corgi</a>
+  <a class="nav-link active" aria-current="page" href="/store/cart/checkout/payment-status/" style="color: #595959";>Order Status</a>
 </li>
 {% endblock %}
 
-{% block right-nav %}
+{% block right-nav%}
+<form class="d-flex" role="search" action="{% url 'search' %}">
+  <input class="form-control me-2" type="search" name="q" placeholder="All Product Search" aria-label="Search" >
+  <button class="btn btn-outline-success" type="submit" style="color: #f8bc63; border-color: #f8bc63;">Search</button>
+</form>
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="/store/cart" style="color: #595959";>cart</a>
+  <a class="nav-link active" aria-current="page" href="/store/cart" style="color: #595959";>Cart</a>
 </li>
-
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="/store/login" style="color: #595959";>My Profile</a>
+  <a class="nav-link active" aria-current="page" href="/store/edit_profile/" style="color: #595959";>My Profile</a>
 </li>
 {% endblock %}
 
@@ -69,7 +72,7 @@
                       <button type="submit" class="btn btn-primary">Add to cart</button>
                     </form>
                   </br>
-                    <a class="btn btn-secondary" href="/store/categories">Continue Shopping</a>
+                    <!-- <a class="btn btn-secondary" href="/store/categories">Continue Shopping</a> -->
                   </div>
                 </div>
               </div>
