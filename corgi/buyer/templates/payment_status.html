@@ -1,0 +1,71 @@
+
+{% extends "homepage.html" %}
+{% block nav %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959";>Categories</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959";>Order Status</a>
+</li>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Chat with Corgi
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <li><a class="dropdown-item" href="#">littlecorgi Store</a></li>
+    <li><a class="dropdown-item" href="#">bokbok Store</a></li>
+    <li><a class="dropdown-item" href="#">Puppy Store</a></li>
+  </ul>
+</li>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+<h1>Payment Status</h1>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link{% if status == 'Pending' %} active{% endif %}" href="#pending" data-toggle="tab">Pending</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link{% if status == 'Confirmed' %} active{% endif %}" href="#confirmed" data-toggle="tab">Confirmed</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link{% if status == 'Cancelled' %} active{% endif %}" href="#cancelled" data-toggle="tab">Cancelled</a>
+    </li>
+  </ul>
+  <br><br>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2>Order Information:</h2>
+        </div>
+        <div class="card-body">
+          <p>Order ID: {{ order_id }}</p>
+          <p>Order Date: {{ order_date }}</p>
+          <!-- <p>Customer: {{ user.name }}</p>
+          <p>Phone: {{ user.phone }}</p> -->
+          <p>Number of Items: {{ cart_items }}</p>
+          <p>Total Price: {{ total_price }} ฿</p>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2>Payment Status:</h2>
+        </div>
+        <div class="card-body">
+          <p>{{ payment_status }}</p>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+{% endblock %}
+
