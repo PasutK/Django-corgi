@@ -5,7 +5,8 @@ from .models import Seller, SellerCategory, SellerProduct
 @admin.register(Seller)
 class SellerAdmin(admin.ModelAdmin):
     list_display = ('store_name', 'store_image',
-                    'qrcode_image', 'last_update')
+                    'qrcode_image', 'last_update',
+                    'store_phone')
 
 @admin.register(SellerCategory)
 class ProductCategoryAdmin(admin.ModelAdmin):

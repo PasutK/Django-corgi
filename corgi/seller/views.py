@@ -23,8 +23,6 @@ def sbase(request): # Seller Homepage
     else:
         return redirect("/seller/register")
 
-
-
 @login_required    
 def register_seller(request):
     if request.method == "POST":
@@ -38,6 +36,12 @@ def register_seller(request):
     else:  
         form = NewSellerForm()
     return render(request, 'Sregister.html', {'form': form })
+
+@login_required    
+def edit_seller(request):
+
+    context = {}
+    return render(request, "edit_profile.html", context)
 
 @login_required    
 def seller_product(request): # view seller product
@@ -81,21 +85,6 @@ def add_product(request):
         "categories":categories
         }
     return render(request, "add_product.html", context)
-    # for c in categories:
-    #     print(c.name)
-    # if request.method == "POST":
-    #     name = request.POST.get('name')
-    #     category = request.POST.get("category")
-    #     price = request.POST.get("price")
-    #     status = request.POST.get("status")
-    #     description = request.POST.get("description")
-    #     image = request.POST.get("image")
-    #     print(name)
-    #     print(category)
-    #     print(price)
-    #     print(status)
-    #     print(description)
-    #     print(image)
 
 @login_required
 def sproduct_detail(request, name):
@@ -104,17 +93,6 @@ def sproduct_detail(request, name):
     user = request.user.id
     print(f'{user}')
     return render(request, 'sproduct_detail.html', context)
-
-
-# @login_required
-# def delete_products(request):
-    # if request.method == 'POST':
-    #     product_ids = request.POST.getlist('products[]')
-    #     SellerProduct.objects.filter(id__in=product_ids).delete()
-    #     return redirect('seller_product')
-    # else:
-    #     return render(request, 'seller_product.html')
-
 
 
 @login_required
