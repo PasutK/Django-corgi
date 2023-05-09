@@ -81,9 +81,9 @@ def edit_profile(request):
         cust = Editprofile(request.POST, instance=user)
         if cust.is_valid():
             cust.save()
-            messages.success(request, "updated success!")
-            return redirect('Core:profile')
+            return redirect('edit_profile.html')
     else:
         cust = Editprofile(instance=user)
     context = {'cust': cust, }
-    return render(request, 'edit_profile.html', context)
+    return render(request, 'Editprofile.html', context)
+

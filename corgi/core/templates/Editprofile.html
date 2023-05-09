@@ -1,3 +1,29 @@
+{% extends "homepage.html" %}
+
+{% block nav %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959";>Categories</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/cart/checkout/payment-status/" style="color: #595959";>Order Status</a>
+</li>
+{% endblock %}
+
+{% block right-nav%}
+<form class="d-flex" role="search" action="{% url 'search' %}">
+  <input class="form-control me-2" type="search" name="q" placeholder="All Product Search" aria-label="Search" >
+  <button class="btn btn-outline-success" type="submit" style="color: #f8bc63; border-color: #f8bc63;">Search</button>
+</form>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/cart" style="color: #595959";>Cart</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/user/edit_profile/" style="color: #595959";>My Profile</a>
+</li>
+{% endblock %}
 
 {% block content %}
 
@@ -12,21 +38,22 @@
             <div class="form-group">
               {{ cust.first_name.label_tag }}
               {{ cust.first_name }}
-            </div>
+            </div><br>
             <div class="form-group">
               {{ cust.last_name.label_tag }}
               {{ cust.last_name }}
-            </div>
+            </div><br>
             <div class="form-group">
               {{ cust.email.label_tag }}
               {{ cust.email }}
-            </div>
+            </div><br>
             <div class="form-group">
               {{ cust.phone.label_tag }}
               {{ cust.phone }}
-            </div>
-            <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary">llll</button>
+            </div><br>
+            <div>
+                <button type="submit" class="btn btn-primary" style="background-color: #f8bc63; border: #f8bc63;">Save</button>
+                <a href="/store/categories/" class="btn btn-bg-secondary" style="background-color: lightgrey; border-color: lightgrey;">Back</a>
             </div>
           </form>
         </div>
