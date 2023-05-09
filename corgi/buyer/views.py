@@ -11,7 +11,7 @@ from core.models import User
 from django.utils import timezone
 from django.views import View
 from decimal import Decimal
-from .models import Order
+from .models import CartOrder
 # Create your views here.
 
 def Bhomepage(request):
@@ -75,8 +75,12 @@ def cart(request):
     orderid = f'{new_cart}_{user}'
     print(orderid)
     if request.method == "POST":
-        Order.objects.create(order=orderid,customer=customer)
-        return redirect(checkout)
+        try:
+            CartOrder.objects.create(order=orderid,customer=customer)
+            return redirect(checkout)
+        except:
+            print('all ready have one')
+            return redirect(checkout)
     total = sum(cart_price)
     context = {'carts': carts,
                'total': total,}
@@ -178,11 +182,13 @@ def payment_status(request):
 login_required
 def edit_profile(request):
     userid = request.user.id
-    userprofile = User.objects.filter(pk=userid).first()
-    context = {'user': userprofile}
+    userprofile = get_object_or_404(User,id=userid)
+    # context = {'user': userprofile}
+    print(userprofile)
     if request.method == 'POST':
         form = FormRegistration(request.POST, instance=userprofile)
         if form.is_valid():
+            print('valid')
             form.save()
             return redirect('edit_profile')
     else:

@@ -1,13 +1,18 @@
 from django.db import models
 from django import forms
-from .models import Cart, User
+from .models import Cart
 from django.core.validators import RegexValidator
-
+from core.models import User
 
 class AddtoCart(forms.ModelForm):
     class Meta:
         model = Cart
         fields = ["amount"]
+
+class AddCartOrder(forms.ModelForm):
+    class Meta:
+        model = Cart
+        fields = ["ordernumber"]
 
 class EditProfileForm(forms.ModelForm):
     email = forms.EmailField(

@@ -21,4 +21,10 @@ class Cart(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.CharField(max_length=10,default=None)
+    order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
+
+class CartOrder(models.Model):
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
+# class Order(models.Model):
+#     order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
