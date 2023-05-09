@@ -12,8 +12,6 @@ from django.views import View
 from decimal import Decimal
 # from .models import CartOrder
 from .models import *
-# from seller.models import Seller
-# Create your views here.
 
 def Bhomepage(request):
     allproducts = SellerProduct.objects.all()
