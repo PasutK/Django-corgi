@@ -12,4 +12,5 @@ urlpatterns = [
     path('edit-profile/', views.edit_seller, name='edit_profile'),
 
     # path('delete-products/', views.delete_products, name='delete_products'),
+    path('payment-overview/', views.payment_overview, name='payment_overview'),
 ]

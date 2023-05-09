@@ -45,11 +45,13 @@
   <div class="row">
     <div class="col-md-6">
       <h2>Merchant Info:</h2>
+      <br>
       <p>Store: {{ store_name }}</p>
       <p>Address: {{ store_address }}</p>
     </div>
     <div class="col-md-6">
       <h2>Customer Info:</h2>
+      <br>
       <p>Name: {{ buyer_name }}</p>
       <p>Phone Number: {{ buyer_phone }}</p>
     </div>
@@ -59,12 +61,13 @@
 
   <h2>Order Details:</h2>
   <br>
-  <table class="table table-striped">
-    <thead>
+  <table class="table text-center">
+    <thead class="text-center">
       <tr>
+        <th>Image</th>
         <th>Product</th>
-        <th>Quantity</th>
         <th>Price/Unit</th>
+        <th>Quantity</th>
         <th>Total Price</th>
       </tr>
     </thead>
