@@ -36,20 +36,17 @@
                 <h1 class="card-title text-center mb-4">Edit Profile</h1>
                 <form method="POST" action="">
                   {% csrf_token %}
-                  {{ form.username.label_tag }}
-                  {{ form.username }}
-                  <br><br>
                   {{ form.first_name.label_tag }}
                   {{ form.first_name }}
                   <br><br>
                   {{ form.last_name.label_tag }}
                   {{ form.last_name }}
-                  <br><br>                 
-                  {{ form.phone.label_tag }}
-                  {{ form.phone }}
                   <br><br>
                   {{ form.email.label_tag }}
                   {{ form.email }}
+                  <br><br>
+                  {{ form.phone.label_tag }}
+                  {{ form.phone }}
                   <br><br>
                   <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-secondary" style="border-color: #ec9410; background-color: #ec9410;">Submit</button>

@@ -163,18 +163,18 @@ def payment_status(request):
     return render(request, 'payment_status.html', context)
 
 
-@login_required
+login_required
 def edit_profile(request):
     userid = request.user.id
     userprofile = User.objects.filter(pk=userid).first()
     context = {'user': userprofile}
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=userprofile)
+        form = FormRegistration(request.POST, instance=userprofile)
         if form.is_valid():
             form.save()
-            return redirect('profile_user')
+            return redirect('edit_profile')
     else:
-        form = EditProfileForm(instance=userprofile)
+        form = FormRegistration(instance=userprofile)
     context = {
         'form': form,
     }
@@ -187,21 +187,3 @@ def chat(request, store_name):
     print(f"store:{stores}")
     context = {'stores': stores}
     return render(request, 'chat.html', context=context)
-
-@login_required    
-def edit_user(request):
-    user = request.user.id
-    try:
-        cust = get_object_or_404(User, user_id = user)
-        print(cust)
-        form = FormRegistration(instance=cust)
-        context = {'form': form }
-        if request.method == "POST":
-            form = FormRegistration(request.POST, request.FILES, instance=cust)
-            if form.is_valid():
-                print('valid')
-                form.save()
-        return render(request, "edit_profile.html", context)
-    except:
-        context = {}
-    return render(request, "edit_profile.html", context)
