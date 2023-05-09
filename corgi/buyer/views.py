@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.db.models import Q
 from .forms import *
+from core.forms import FormRegistration
 from core.models import User
 import random
 from django.utils import timezone
@@ -186,3 +187,21 @@ def chat(request, store_name):
     print(f"store:{stores}")
     context = {'stores': stores}
     return render(request, 'chat.html', context=context)
+
+@login_required    
+def edit_user(request):
+    user = request.user.id
+    try:
+        cust = get_object_or_404(User, user_id = user)
+        print(cust)
+        form = FormRegistration(instance=cust)
+        context = {'form': form }
+        if request.method == "POST":
+            form = FormRegistration(request.POST, request.FILES, instance=cust)
+            if form.is_valid():
+                print('valid')
+                form.save()
+        return render(request, "edit_profile.html", context)
+    except:
+        context = {}
+    return render(request, "edit_profile.html", context)

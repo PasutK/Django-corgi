@@ -64,7 +64,6 @@ def edit_store(request):
         context = {}
     return render(request, "edit_store.html", context)
 
-
 @login_required    
 def seller_product(request): # view seller product
     userID = request.user.id
