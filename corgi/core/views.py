@@ -103,6 +103,7 @@ def order_status(request):
     order = CartOrder.objects.filter(customer = userID)
     # cart = get_object_or_404(Cart,ordernumber = order.order)
     # print(cart)
+    # cart = Cart.objects.filter()
     print(order)
     context={
         'order': order ,

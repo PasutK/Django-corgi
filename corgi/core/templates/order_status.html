@@ -18,14 +18,15 @@
             </div>
             <div class="card-body">
               <p>Order ID: {{ o.order }}</p>
-              <p>Number of Items: {{ cart_items }}</p>
+              {% for i in %}
+              <p>Items: {{  }}</p>
               <p>Total Price: {{ total_price }} ฿</p>
             </div>
           </div>
         </div>
       </div>
     </br>
-
+    {% endfor %}
 </div>
 
 
