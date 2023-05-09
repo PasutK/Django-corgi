@@ -136,12 +136,8 @@ def edit_product(request, id):
 
 
 def payment_overview(request):
-    # Retrieve the order information from the database
     orders = Cart.objects.all()
-
-    # Define the context variables
     context = {
         'orders': orders,
     }
-
     return render(request, 'payment_overview.html', context)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, UpdateView, DeleteView
-from .forms import FormRegistration
+from .forms import FormRegistration, Editprofile
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -73,3 +73,17 @@ def userregister(request):
 @login_required
 def userprofile(request):
     return render(request, "profile.html", {})
+
+@login_required
+def edit_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        cust = Editprofile(request.POST, instance=user)
+        if cust.is_valid():
+            cust.save()
+            messages.success(request, "updated success!")
+            return redirect('Core:profile')
+    else:
+        cust = Editprofile(instance=user)
+    context = {'cust': cust, }
+    return render(request, 'edit_profile.html', context)
