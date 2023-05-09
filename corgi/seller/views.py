@@ -8,7 +8,6 @@ from .models import *
 from .forms import NewSellerForm, ProductForm, EditProductForm
 from core.models import User
 
-
 @login_required
 def sbase(request):
     user = request.user.id
@@ -123,3 +122,18 @@ def edit_product(request, id):
         "categories": category,
     }
     return render(request, "edit_product.html", context)
+
+
+from buyer.models import Cart
+
+
+def payment_overview(request):
+    # Retrieve the order information from the database
+    orders = Cart.objects.all()
+
+    # Define the context variables
+    context = {
+        'orders': orders,
+    }
+
+    return render(request, 'payment_overview.html', context)

@@ -1,0 +1,63 @@
+{% extends "homepage.html" %}
+
+{% block nav %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/" style="color: #595959;">Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959;">Categories</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="" style="color: #595959";>Chat with Corgi</a>
+</li>
+{% endblock %}
+
+{% block right-nav %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/cart" style="color: #595959";>cart</a>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/login" style="color: #595959";>login</a>
+</li>
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>Payment Overview</h1>
+    <hr>
+    {% for order in orders %}
+      <div class="card mb-3">
+        <div class="card-header">
+          <h2>Order Information:</h2>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Order ID: {{ order.id }}</h5>
+          <p class="card-text">Customer Name: {{ order.customer_name }}</p>
+          <p class="card-text">Customer Phone Number: {{ order.customer_phone_number }}</p>
+          <hr>
+          <h5 class="card-title">Order Details:</h5>
+          <ul>
+            {% for item in order.items.all %}
+              <li>{{ item.product.name }} ({{ item.quantity }}) - {{ item.price }} ฿</li>
+            {% endfor %}
+          </ul>
+          <hr>
+          <h5 class="card-title">Total Cost: {{ order.total_cost }} ฿</h5>
+          <hr>
+          <img src="" alt="Payment Receipt" class="img-fluid">
+          <hr>
+          <form action="{}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Confirm Payment</button>
+          </form>
+          <br>
+          <form action="{}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Cancel Order</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
