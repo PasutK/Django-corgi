@@ -100,12 +100,12 @@ def editUser_profile(request):
 @login_required
 def order_status(request):
     userID = request.user.id
-    order = get_object_or_404(CartOrder,customer = userID)
-    cart = get_object_or_404(Cart,ordernumber = order.order)
-    print(cart)
+    order = CartOrder.objects.filter(customer = userID)
+    # cart = get_object_or_404(Cart,ordernumber = order.order)
+    # print(cart)
     print(order)
     context={
         'order': order ,
-        'cart': cart ,
+        # 'cart': cart ,
             }
     return render(request, "order_status.html", context)
