@@ -27,6 +27,7 @@ class Seller(models.Model):
     store_image = models.ImageField(upload_to="seller/media/store/")
     qrcode_image = models.ImageField(upload_to="seller/media/qrcode/")
     last_update = models.DateTimeField(auto_now=True)
+    store_phone = models.CharField(max_length=10, default= None, null=True)
     # user = models.ForeignKey(User) --> fix later
 
     @staticmethod

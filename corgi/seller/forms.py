@@ -8,6 +8,10 @@ class NewSellerForm(forms.ModelForm):
         model = Seller
         fields = ["store_name", "store_address", "store_image", "qrcode_image"]
 
+class SellerProfile(forms.ModelForm):
+    class Meta:
+        model = Seller
+        fields = ["store_name", "store_address", "store_image", "qrcode_image"]
 	
 class SellerLoginForm(forms.Form):
     email = forms.EmailField()
