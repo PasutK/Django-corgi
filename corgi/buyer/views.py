@@ -7,6 +7,7 @@ from django.db.models import Q
 from .forms import *
 from core.models import User
 import random
+from django.utils import timezone
 from django.views import View
 from decimal import Decimal
 # Create your views here.
@@ -110,6 +111,28 @@ def search(request):
         products = SellerProduct.objects.all()
     return render(request, 'search.html', {'products': products})
 
+# def payment_status(request):
+#     # Retrieve the order information from the database
+#     user = request.user.id
+#     carts = Cart.objects.filter(customer=user)
+#     cart_items = len(carts)
+#     cart_price = []
+#     for p in carts:
+#         cart_price.append(p.price) 
+#     total = sum(cart_price)
+
+#     # Define the context variables
+#     context = {
+#         'order_id': '123456',  # Replace with actual order ID
+#         'order_date': 'May 9, 2023',  # Replace with actual order date
+#         'cart_items': cart_items,
+#         'total_price': total,
+#         'payment_status': 'Pending',  # Replace with actual payment status
+#     }
+
+#     return render(request, 'payment_status.html', context)
+
+
 def payment_status(request):
     # Retrieve the order information from the database
     user = request.user.id
@@ -120,16 +143,24 @@ def payment_status(request):
         cart_price.append(p.price) 
     total = sum(cart_price)
 
+    # Retrieve payment status for each order
+    # pending_orders = carts.filter(status='Pending')
+    # completed_orders = carts.filter(status='Completed')
+    # cancelled_orders = carts.filter(status='Cancelled')
+
     # Define the context variables
     context = {
         'order_id': '123456',  # Replace with actual order ID
-        'order_date': 'May 9, 2023',  # Replace with actual order date
+        'order_date': timezone.now().strftime("%B %d, %Y"),  # Get current date
         'cart_items': cart_items,
         'total_price': total,
-        'payment_status': 'Pending',  # Replace with actual payment status
+        # 'pending_orders': pending_orders,
+        # 'completed_orders': completed_orders,
+        # 'cancelled_orders': cancelled_orders,
     }
 
     return render(request, 'payment_status.html', context)
+
 
 @login_required
 def edit_profile(request):
