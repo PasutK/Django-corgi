@@ -1,0 +1,48 @@
+{% extends "homepage.html" %}
+
+{% block nav %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959";>Categories</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/cart/checkout/payment-status/" style="color: #595959";>Order Status</a>
+</li>
+{% endblock %}
+
+{% block right-nav%}
+<form class="d-flex" role="search" action="{% url 'search' %}">
+  <input class="form-control me-2" type="search" name="q" placeholder="All Product Search" aria-label="Search" >
+  <button class="btn btn-outline-success" type="submit" style="color: #f8bc63; border-color: #f8bc63;">Search</button>
+</form>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/cart" style="color: #595959";>Cart</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/store/edit_profile/" style="color: #595959";>My Profile</a>
+</li>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Edit Profile</h1>
+    <hr>
+    {{ user.first_name }}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
