@@ -5,11 +5,12 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.db.models import Q
 from .forms import *
-from core.models import User
 import random
+from core.models import User
 from django.utils import timezone
 from django.views import View
 from decimal import Decimal
+from .models import Order
 # Create your views here.
 
 def Bhomepage(request):
@@ -60,10 +61,21 @@ def store_detail(request, store_name):
 @login_required
 def cart(request):
     user = request.user.id
+    customer = User.objects.get(pk=user)
+    print(customer)
     carts = Cart.objects.filter(customer=user)
     cart_price = []
+    cart_id = []
     for p in carts:
         cart_price.append(p.price)
+        cart_id.append(p.id)
+    new_cart = ''.join(str(i) for i in cart_id)
+    print(new_cart)
+    orderid = f'{new_cart}_{user}'
+    print(orderid)
+    if request.method == "POST":
+        Order.objects.create(order=orderid,customer=customer)
+        return redirect(checkout)
     total = sum(cart_price)
     context = {'carts': carts,
                'total': total,}

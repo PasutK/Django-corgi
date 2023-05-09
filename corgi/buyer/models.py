@@ -6,6 +6,7 @@ from seller.models import Seller, SellerProduct
 from core.models import User
 import re, datetime
 
+
 class Cart(models.Model):
     is_paid = models.BooleanField(default=False)
     product = models.ForeignKey(SellerProduct, on_delete=models.CASCADE)
@@ -13,10 +14,11 @@ class Cart(models.Model):
     amount = models.IntegerField(default=0)
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     date = models.DateField(default=datetime.datetime.today)
-    # address = models.CharField(max_length=50, default="", blank=True)
-    # phone = models.CharField(max_length=50, default="", blank=True)
-    # status = models.BooleanField(default=False)
+    ordernumber = models.CharField(max_length=10,null=True,default=None)
 
     def placeOrder(self):
         self.save()
-    
+
+class Order(models.Model):
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.CharField(max_length=10,default=None)

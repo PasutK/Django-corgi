@@ -135,9 +135,12 @@
 </div>
     <h3>Total (tax included)</h3> 
     <h5>฿ {{ total }}</h5>
-    <br>
-      <a class="checkout" aria-current="page" href="checkout/" style="line-height: 1.5;">Go to Checkout</a>
-    <br>
+</br>
+    <form method="POST">
+      {% csrf_token %}
+        <button class="btn btn-primary checkout" type="submit" style="line-height: 1.5;">Go to Checkout</button>
+      </form>
+    </br>
     </div>
   </div>
   
