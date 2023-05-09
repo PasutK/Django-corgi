@@ -1,18 +1,58 @@
-{% extends "homepage.html" %}
-{% block nav %}
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="categories" style="color: #595959";>Categories</a>
-</li>
-{% endblock %}
+{% load static %}
 
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<head>
+    <title>Corgi Store | Cutest Store</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'media/logo.jpg'%}" />
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+    <a class="navbar-brand" href="/" style="font-weight:bold; font-size:36px; color: #ec9410;"> <img class="navbar-brand" src="{% static 'media/logo.jpg'%}" alt="" width="100" height="100">
+        Corgi Store
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+            {% block nav %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/" style="color: #595959";>Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/store/categories" style="color: #595959";>Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/store/cart/checkout/payment-status/" style="color: #595959";>Order Status</a>
+            </li>
+            {% endblock %}
+        </ul>
+    </div>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 {% block right-nav %}
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/login" style="color: #595959;";>login</a>
-</li>
+<form class="d-flex" role="search" action="{% url 'search' %}">
+    <input class="form-control me-2" type="search" name="q" placeholder="All Product Search" aria-label="Search" >
+    <button class="btn btn-outline-warning" type="submit" style="margin-left:7px;">Search</button>
+  </form>
+  
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/store/cart" style="color: #595959";>cart</a>
+  </li>
+  
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/store/edit_profile/" style="color: #595959";>My Profile</a>
+  </li>
 {% endblock %}
+    </ul>
+</div>
+</nav>
+</head>>
 
 {% block content %}
     <div class="container mt-5">
@@ -37,6 +77,7 @@
   </div>
   {% endfor %}
   {% endblock %}
+  </html>
 
 
 

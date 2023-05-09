@@ -26,23 +26,40 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <h1>Edit Profile</h1>
-    <hr>
-    {{ user.first_name }}
+  
     <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Save Changes</button>
-    </form>
-  </div>
-
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">
-        {{ message }}
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="card-title text-center mb-4">Edit Profile</h1>
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  {{ form.username.label_tag }}
+                  {{ form.username }}
+                  <br><br>
+                  {{ form.first_name.label_tag }}
+                  {{ form.first_name }}
+                  <br><br>
+                  {{ form.last_name.label_tag }}
+                  {{ form.last_name }}
+                  <br><br>
+                  {{ form.email.label_tag }}
+                  {{ form.email }}
+                  <br><br>
+                  <p>phonhe</p>
+                  {{ form.phone.label_tag }}
+                  {{ form.phone }}
+                  <br><br>
+                  <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-secondary" style="border-color: #ec9410; background-color: #ec9410;">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    {% endfor %}
-  {% endif %}
 {% endblock %}
 
