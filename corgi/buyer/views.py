@@ -7,6 +7,7 @@ from django.db.models import Q
 from .forms import *
 from core.forms import FormRegistration
 import random
+from django.utils import timezone
 from core.models import User
 from django.views import View
 from decimal import Decimal
@@ -173,7 +174,7 @@ def payment_status(request):
     # Define the context variables
     context = {
         'order_id': '123456',  # Replace with actual order ID
-        'order_date': timezone.now().strftime("%B %d, %Y"),  # Get current date
+        'order_date': timezone.now(),  # Get current date
         'cart_items': cart_items,
         'total_price': total,
         # 'pending_orders': pending_orders,
