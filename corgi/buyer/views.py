@@ -12,8 +12,6 @@ from django.views import View
 from decimal import Decimal
 # from .models import CartOrder
 from .models import *
-# from seller.models import Seller
-# Create your views here.
 
 def Bhomepage(request):
     allproducts = SellerProduct.objects.all()
@@ -130,9 +128,6 @@ def checkout(request):
     }
 
     return render(request, 'checkout.html', context)
-
-
-
 
 @login_required
 def search(request):

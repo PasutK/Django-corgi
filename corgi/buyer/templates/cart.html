@@ -118,15 +118,8 @@
                         <td><img src="{{ cart.product.image.url }}" alt="" width=100 height=auto></td>
                         <td>{{ cart.product }}</td>
                         <td>฿ {{ cart.product.price }}</td>
-                        <td>
-                            <div class="quantity">
-                                <button class="decrease">-</button>
-                                <p>{{ cart.amount }}</p>
-                                <button class="increase">+</button>
-                            </div>
-                        </td>
+                        <td>{{ cart.amount }}</td>
                         <td>฿ {{ cart.price }}</td>
-                        <td><button class="remove">Remove</button></td>
                     </tr>
                 {% endfor %}
             </tbody>
