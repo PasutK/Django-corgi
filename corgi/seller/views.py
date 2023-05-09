@@ -9,7 +9,7 @@ from .forms import NewSellerForm, ProductForm, EditProductForm
 from core.models import User
 
 @login_required
-def sbase(request):
+def sbase(request): # Seller Homepage
     user = request.user.id
     print(user)
     try:
@@ -39,10 +39,9 @@ def register_seller(request):
     return render(request, 'Sregister.html', {'form': form })
 
 @login_required    
-def seller_product(request):
+def seller_product(request): # view seller product
     userID = request.user.id
     sellerID = None
-    print(userID)
     if userID:
         try:
             sellerID = Seller.objects.get(user__id=request.user.id)
@@ -55,7 +54,12 @@ def seller_product(request):
         "products": product,
         "sellerID": sellerID
     }
-
+    if request.method == "POST": # delete product form
+        delete_product = request.POST.getlist('products[]')
+        print(delete_product)
+        for product_id in delete_product:
+            product = get_object_or_404(SellerProduct, id=product_id)
+            product.delete()
     return render(request, "seller_product.html", context)
 
 @login_required
@@ -92,6 +96,7 @@ def add_product(request):
     #     print(description)
     #     print(image)
 
+@login_required
 def sproduct_detail(request, name):
     products = SellerProduct.objects.filter(name=name.replace('_', ' '))
     context = {'products': products}
@@ -99,15 +104,19 @@ def sproduct_detail(request, name):
     print(f'{user}')
     return render(request, 'sproduct_detail.html', context)
 
-def delete_products(request):
-    if request.method == 'POST':
-        product_ids = request.POST.getlist('products[]')
-        SellerProduct.objects.filter(id__in=product_ids).delete()
-        return redirect('seller_product')
-    else:
-        return render(request, 'seller_product.html')
+
+# @login_required
+# def delete_products(request):
+    # if request.method == 'POST':
+    #     product_ids = request.POST.getlist('products[]')
+    #     SellerProduct.objects.filter(id__in=product_ids).delete()
+    #     return redirect('seller_product')
+    # else:
+    #     return render(request, 'seller_product.html')
 
 
+
+@login_required
 def edit_product(request, id):
     category = SellerCategory.objects.all()
     product = get_object_or_404(SellerProduct, pk=id, seller=request.user.seller)

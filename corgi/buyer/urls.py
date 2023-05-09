@@ -9,8 +9,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('',views.Bhomepage,name="Homepage"),
     path('categories/', views.category_list, name='category_list'),
-    path('categories/<int:category>/', views.category_detail, name='category_detail'),  # tab แบบสมบูรณ์อยู่หน้านี้
-    path('categories/<int:category>/<str:name>/', views.product_detail, name='product_detail'),
+    path('categories/<int:category>/', views.category_detail, name='category_detail'),
+    path('products/<int:id>/', views.product_detail, name='product_detail'),
     path('store/<str:store_name>/', views.store_detail, name='store_detail'),
     path('cart/', views.cart, name='cart'),
     # path('cart/add_to_cart/', views.add_to_cart, name='add_to_cart'),

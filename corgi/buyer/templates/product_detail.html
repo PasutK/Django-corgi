@@ -44,7 +44,7 @@
             
             <!-- store พังอยู่ลิ้งไม่ได้จ้าาาาา -->
             <!-- <button type="button" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;" >Go to Store</button> -->
-            <a href="{% url 'store_detail' store_name=product.seller.store_name %}" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Go to Store</a>
+            <a href="/store/store/{{ product.seller.store_name }}" class="btn btn-sm btn-success col-lg-3" style="font-size: 16px; background-color: #f8bc63;  border-color:#f8bc63; padding:15px;">Go to Store</a>
             <div class="modal fade" id="Add-to-Cart-modal-{{ product.id }}" tabindex="-1" aria-labelledby="Add-to-Cart-modal-{{ product.id }}" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
