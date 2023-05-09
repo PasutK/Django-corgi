@@ -75,15 +75,16 @@ def userprofile(request):
     return render(request, "profile.html", {})
 
 @login_required
-def edit_profile(request):
+def editUser_profile(request):
     user = request.user
     if request.method == 'POST':
         cust = Editprofile(request.POST, instance=user)
         if cust.is_valid():
             cust.save()
-            return redirect('edit_profile.html')
+            messages.success(request, "updated success!")
+            previous_url = request.POST.get('previous_url')
+            return redirect(previous_url)
     else:
         cust = Editprofile(instance=user)
-    context = {'cust': cust, }
-    return render(request, 'Editprofile.html', context)
-
+    context = {'cust': cust,}
+    return render(request, 'edituserprofile.html', context)
