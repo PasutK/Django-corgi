@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, UpdateView, DeleteView
 from .forms import FormRegistration, Editprofile
 from django.urls import reverse_lazy
@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from homepage.views import homepage
 from buyer.views import Bhomepage
+from buyer.models import *
 
 def userlogin(request):
     if request.method == "POST":
@@ -75,6 +76,13 @@ def userprofile(request):
     return render(request, "profile.html", {})
 
 @login_required
+def viewprofile(request):
+    userID = request.user.id
+    user = get_object_or_404(User,id=userID)
+    context = {'user':user}
+    return render(request, "userprofile.html", context)
+
+@login_required
 def editUser_profile(request):
     user = request.user
     if request.method == 'POST':
@@ -88,3 +96,16 @@ def editUser_profile(request):
         cust = Editprofile(instance=user)
     context = {'cust': cust,}
     return render(request, 'edituserprofile.html', context)
+
+@login_required
+def order_status(request):
+    userID = request.user.id
+    order = get_object_or_404(CartOrder,customer = userID)
+    cart = get_object_or_404(Cart,ordernumber = order.order)
+    print(cart)
+    print(order)
+    context={
+        'order': order ,
+        'cart': cart ,
+            }
+    return render(request, "order_status.html", context)

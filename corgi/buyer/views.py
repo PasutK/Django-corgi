@@ -64,7 +64,6 @@ def store_detail(request, store_name):
 def cart(request):
     user = request.user.id
     customer = User.objects.get(pk=user)
-    print(customer)
     carts = Cart.objects.filter(customer=user)
     cart_price = []
     cart_id = []
@@ -72,12 +71,19 @@ def cart(request):
         cart_price.append(p.price)
         cart_id.append(p.id)
     new_cart = ''.join(str(i) for i in cart_id)
-    print(new_cart)
+    print(cart_id)
     orderid = f'{new_cart}_{user}'
-    print(orderid)
     if request.method == "POST":
+        for c in cart_id:
+            print(c)
+            cart = get_object_or_404(Cart,id=c)
+            print(cart)
+            print(cart.ordernumber)
+            cart.ordernumber = orderid
+            cart.save()
         try:
             CartOrder.objects.create(order=orderid,customer=customer)
+
             return redirect(checkout)
         except:
             print('all ready have one')
