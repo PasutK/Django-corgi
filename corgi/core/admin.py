@@ -15,3 +15,4 @@ class UserAdmin(CorgiUserAdmin):
         },
         ),
     )
+    list_display = ("username", "email", "first_name", "last_name", "phone")
