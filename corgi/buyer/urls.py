@@ -18,7 +18,6 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('<str:store_name>/chat/', views.chat, name='chat'),
     path('cart/checkout/payment-status/', views.payment_status, name='payment_status'),
-    path('edit_profile/', views.edit_profile, name='edit_profile'),
 ]
 
 if settings.DEBUG:

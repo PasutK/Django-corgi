@@ -15,6 +15,12 @@ class FormRegistration(UserCreationForm):
         model = User
         fields = ("username", "first_name", "last_name", "phone", "email", "address", "password1", "password2")
 
+class Editprofile(forms.ModelForm):
+    class Meta: 
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'phone']
+
+
     # def save(self, commit=True):
     #     user = super(FormRegistration, self).save(commit=False)
     #     user.email = self.cleaned_data["email"]

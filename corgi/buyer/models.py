@@ -18,6 +18,8 @@ class Cart(models.Model):
 
     def placeOrder(self):
         self.save()
+    def __str__(self):
+        return f"{self.product}"
 
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
