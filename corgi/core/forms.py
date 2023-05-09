@@ -30,9 +30,9 @@ class Editprofile(forms.ModelForm):
     phone_validator = RegexValidator(regex=r'^\d{10}$', message='Phone number must be 10 digits.')
     email = forms.EmailField(widget=EmailInput(attrs={'class': 'form-control'}), validators=[email_validator])
     phone = forms.CharField(widget=TextInput(attrs={'class': 'form-control'}), max_length=10, validators=[phone_validator])
-    address = forms.CharField(widget=Textarea(attrs={'class': 'form-control'}), max_length=255)
-    first_name.widget = forms.Textarea(attrs={'class': 'form-control', 'id': 'exampleFormControlTextarea1', 'rows': '3'})
-    last_name.widget = forms.Textarea(attrs={'class': 'form-control', 'id': 'exampleFormControlTextarea1', 'rows': '3'})
+    address = forms.CharField(widget=Textarea(attrs={'class': 'form-control', 'rows': '3'}), max_length=255)
+    first_name.widget = forms.Textarea(attrs={'class': 'form-control', 'id': 'exampleFormControlTextarea1', 'rows': '1'})
+    last_name.widget = forms.Textarea(attrs={'class': 'form-control', 'id': 'exampleFormControlTextarea1', 'rows': '1'})
 
     class Meta: 
         model = User

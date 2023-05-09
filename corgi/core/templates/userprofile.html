@@ -1,0 +1,35 @@
+{% extends "profile.html" %}
+
+{% block content %}
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center mb-4">Your Profile</h1>
+            <h5>First Name</h5>        
+            <p>{{user.first_name}}</p>
+            <h5>Last Name</h5>        
+            <p>{{user.last_name}}</p>
+            <h5>email</h5>        
+            <p>{{user.email}}</p>
+            <h5>Phone</h5>        
+            <p>{{user.phone}}</p>
+            <h5>Address</h5>        
+            <p>{{user.address}}</p>
+              <div class="d-flex justify-content-center">
+                <a href="/user/edit-profile" class="btn btn-primary">edit profile</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
