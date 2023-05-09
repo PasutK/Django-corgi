@@ -111,7 +111,8 @@
     <form method="POST">
         {% csrf_token %}
         <table class="table table-striped" style="width: 350%;">
-            <thead>
+          <thead class="text-center">
+            <br>
                 <tr>
                     <th scope="col">Image</th>
                     <th scope="col">Product</th>
@@ -144,8 +145,9 @@
 </div>
     <h3>Total (tax included)</h3> 
     <h5>฿ {{ total }}</h5>
+    <br>
       <a class="checkout" aria-current="page" href="checkout/" style="line-height: 1.5;">Go to Checkout</a>
-
+    <br>
     </div>
   </div>
   
