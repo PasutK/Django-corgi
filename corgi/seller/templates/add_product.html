@@ -3,53 +3,6 @@
 {% block title %}
 <title> Add product </title>
 {% endblock %}
-{% comment %} <!DOCTYPE html> {% endcomment %}
-
-{% comment %} <html>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<head>
-    <title>Seller Site</title>
-    <nav class="navbar bg-body-tertiary fixed-top">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="/" style="font-weight:bold; color: #ec9410;">
-            Corgi Store
-            <img class="navbar-brand" src="{% static 'media/logo.jpg'%}" alt="" width="100" height="100">
-          </a>
-          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-              <h3 class="offcanvas-title" id="offcanvasNavbarLabel">Seller Menu</h3>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-          
-            <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">My Profile Setting</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/seller/products">Manage My Store</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Inbox</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Order Status</a>
-                </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
-</head> {% endcomment %}
-
 
 {% block content %}
 <style>
@@ -70,52 +23,6 @@
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           {{ form.as_p }}
-          {% comment %} <div class="row">
-            <div class="col-md-6">
-              <label for="name" class="form-label">Name:</label>
-              <input type="text" class="form-control" name="name" value="{% if product %}{{ product.name }}{% endif %}">
-            </div>
-            <div class="col-md-6">
-              <label for="category" class="form-label">Category:</label>
-              <select class="form-select" name="category">
-                <option selected disabled value="">Choose...</option>
-                {% for category in categories %}
-                  <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <label for="price" class="form-label">Price:</label>
-              <input type="text" class="form-control" name="price" value="{% if product %}{{ product.price }}{% endif %}">
-            </div>
-            <div class="col-md-6">
-              <label for="status" class="form-label">Status:</label>
-              <select class="form-select" name="status">
-                <option value="active" {% if product and product.status == 'active' %}selected{% endif %}>Active</option>
-                <option value="out of stock" {% if product and product.status == 'out of stock' %}selected{% endif %}>Out of Stock</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <label for="description" class="form-label">Description:</label>
-              <input type="text" class="form-control" name="description" value="{% if product %}{{ product.description }}{% endif %}" style="height: 100px;">
-
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <label for="image" class="form-label">Image:</label>
-              <div class="mb-3">
-                {% if product and product.image %}
-                  <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail">
-                {% endif %}
-                <input type="file" class="form-control" name="image">
-              </div>
-            </div>
-          </div> {% endcomment %}
           <button type="submit" class="btn btn-primary mt-3" style="border-color: #f8bc63; background-color: #f8bc63;">{% if product %}Save{% else %}Add{% endif %} Product</button>
 
         </form>
@@ -123,7 +30,6 @@
       </div>
     </div>
   </div>        
-  <!-- <img src="{% static 'media/add.jpg' %}" alt="Add Image" class="img-thumbnail" style='width: 400px;height: 400px;position: absolute;top: 130%;right: -100%;transform: translateY(-50%);'> -->
   {% endblock %}
 
 
