@@ -83,8 +83,8 @@
                                             <div class="card-body">
                                                 <h4 class="card-title">{{ product.name }}</h4>
                                                 <p class="card-text">{{ product.price }}</p>
-    
                                             </div>
+                                            <a class='stretched-link' href="{% url 'product_detail' product.id %}"></a>
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -99,7 +99,7 @@
                                             <div class="card-body">
                                                 <h4 class="card-title">{{ product.name }}</h4>
                                                 <p class="card-text">{{ product.price }}</p>
-    
+                                                <a class='stretched-link' href="{% url 'product_detail' product.id %}"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
                                             <div class="card-body">
                                                 <h4 class="card-title">{{ product.name }}</h4>
                                                 <p class="card-text">{{ product.price }}</p>
-    
+                                                <a class='stretched-link' href="{% url 'product_detail' product.id %}"></a>
                                             </div>
                                         </div>
                                     </div>

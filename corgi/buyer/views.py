@@ -32,8 +32,8 @@ def category_detail(request, category):
     context = {'products': products}
     return render(request, 'category_detail.html', context)
 
-def product_detail(request, category, name):
-    products = SellerProduct.objects.filter(category=category, name=name.replace('_', ' '))
+def product_detail(request, id):
+    products = SellerProduct.objects.filter(pk = id)
     sellerproduct = products.first()
     productprice = sellerproduct.price
     product = get_object_or_404(SellerProduct, pk=sellerproduct.id)
