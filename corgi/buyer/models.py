@@ -8,25 +8,22 @@ import re, datetime
 
 
 class Cart(models.Model):
-    # is_paid = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
     product = models.ForeignKey(SellerProduct, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     date = models.DateField(default=datetime.datetime.today)
     ordernumber = models.CharField(max_length=10,null=True,default=None)
+    seller_id = models.ForeignKey(Seller,on_delete=models.CASCADE,default=None)
 
-    def placeOrder(self):
-        self.save()
-    def __str__(self):
-        return f"{self.product}"
 
-class Order(models.Model):
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
+# class Order(models.Model):
+#     customer = models.ForeignKey(User, on_delete=models.CASCADE)
+#     order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
 
 class CartOrder(models.Model):
-    is_paid = models.BooleanField(default=False)
+    is_check = models.BooleanField(default=False)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     order = models.CharField(primary_key=True,max_length=10,default=None,unique=True)
 # class Order(models.Model):
@@ -35,5 +32,5 @@ class CartOrder(models.Model):
 class Slip(models.Model):
     order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    is_paid = models.BooleanField(default=False)
+    is_check = models.BooleanField(default=False)
     slip_image = models.ImageField(upload_to="buyer/media/slip/", blank=False)

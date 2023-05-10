@@ -7,6 +7,7 @@ from django.db.models import Q
 from .forms import *
 from core.forms import FormRegistration
 import random
+from datetime import datetime
 from django.utils import timezone
 from core.models import User
 from django.views import View
@@ -38,16 +39,17 @@ def product_detail(request, id):
     products = SellerProduct.objects.filter(pk = id)
     sellerproduct = products.first()
     productprice = sellerproduct.price
+    sellerID = sellerproduct.seller_id
     product = get_object_or_404(SellerProduct, pk=sellerproduct.id)
     context = {'products': products}
     user = request.user.id
     customer = get_object_or_404(User, pk=user)
-    print(product,customer)
+    print(sellerID)
     form = AddtoCart(request.POST)
     if request.method == "POST":
         quantity = request.POST.get("amount")
         price = productprice * Decimal(quantity)
-        add_to_cart = Cart(product=product, price=price, amount=quantity, customer=customer)
+        add_to_cart = Cart(product=product, price=price, amount=quantity, customer=customer, seller_id=sellerID)
         add_to_cart.save()
         context = {'products': products, 'form':form}
     return render(request, 'product_detail.html', context)
@@ -69,14 +71,10 @@ def cart(request):
         cart_price.append(p.price)
         cart_id.append(p.id)
     new_cart = ''.join(str(i) for i in cart_id)
-    print(cart_id)
     orderid = f'{new_cart}_{user}'
     if request.method == "POST":
         for c in cart_id:
-            print(c)
             cart = get_object_or_404(Cart,id=c)
-            print(cart)
-            print(cart.ordernumber)
             cart.ordernumber = orderid
             cart.save()
         try:
@@ -103,18 +101,24 @@ def checkout(request):
     store_address = seller.store_address
     qrcode_image = seller.qrcode_image
     
-    order = CartOrder.objects.filter(customer_id=user.id, is_paid=False)
+    order = CartOrder.objects.filter(customer_id=user.id, is_check=False)
     orderID = order.last()
     print(orderID.order)
     print(user.id)
     carts = Cart.objects.filter(customer=user)
     cart_price = []
+    cart_ID = []
     for p in carts:
         cart_price.append(p.price)
+        cart_ID.append(p.id)
     total = sum(cart_price)
 
     if request.method == "POST":
         slip_pic = request.FILES.get("receipt")
+        for i in carts:
+            i.is_paid=True
+            i.save()
+            print('save')
         if slip_pic:
             slip = Slip.objects.create(slip_image=slip_pic,order_id=orderID.order,customer_id=user.id)
             slip.save()
@@ -153,7 +157,7 @@ def payment_status(request):
     for p in carts:
         cart_price.append(p.price) 
     total = sum(cart_price)
-    order = CartOrder.objects.filter(customer_id=user, is_paid=False)
+    order = CartOrder.objects.filter(customer_id=user, is_check=False)
     orderID = order.last()
     # Retrieve payment status for each order
     # pending_orders = carts.filter(status='Pending')
@@ -163,7 +167,7 @@ def payment_status(request):
     # Define the context variables
     context = {
         'order_id': orderID.order,  # Replace with actual order ID
-        'order_date': timezone.now(),  # Get current date
+        'order_date': datetime.date.today,  # Get current date
         'cart_items': cart_items,
         'total_price': total,
         # 'pending_orders': pending_orders,
