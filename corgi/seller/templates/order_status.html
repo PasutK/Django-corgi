@@ -1,56 +1,44 @@
 {% extends "Sbase.html" %}
 {% load static %}
+{% block title %}
+<title> Manage Product </title>
+{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-  <br>
-  <br>
-  <br>
-  <br>
-
-  <div class="card">
-    <div class="card-header">
-      <h2>Order Details</h2>
-    </div>
-    <div class="card-body">
-      {% if order_id %}
-      <p><strong>Order ID:</strong> {{ order_id }}</p>
-      <p><strong>Customer Name:</strong> {{ buyer_firstname }} {{ buyer_lastname }}</p>
-      <p><strong>Customer Phone:</strong> {{ buyer_phone }}</p>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for cart in carts %}
-          <tr>
-            <td>{{ cart.product.name }}</td>
-            <td>{{ cart.quantity }}</td>
-            <td>{{ cart.price }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <p><strong>Total Cost:</strong> {{ total_price }}</p>
-      {% else %}
-      <p>No order found.</p>
-      {% endif %}
-    </div>
+<style>
+  body {
+  position: absolute;
+  top: 18%;
+  width: 30%;
+  height: 20%;
+  left: 5%;
+}
+</style>
+  <div class="col-md-10">
+        <table class="table table-striped" style="width: 350%;">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td><input type="checkbox" name="products[]" value="{{ product.id }}"></td>
+                    <td><a href="/seller/edit-products/{{product.id}}">{{ product.name }}</a></td>
+                    <td><img src="{{ product.image.url }}" alt="{{ product.name }}" width="100" height="100"></td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% comment %} </form> {% endcomment %}
   </div>
-
-  {% if qrcode_image %}
-  <div class="card mt-5">
-    <div class="card-header">
-      <h2>Payment Receipt</h2>
-    </div>
-    <div class="card-body">
-      <img src="{{ qrcode_image.url }}" alt="Payment Receipt" class="img-fluid">
-    </div>
-  </div>
-  {% endif %}
-</div>
+</form>
 {% endblock %}
+
