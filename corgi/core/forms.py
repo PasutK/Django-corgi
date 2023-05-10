@@ -37,13 +37,3 @@ class Editprofile(forms.ModelForm):
     class Meta: 
         model = User
         fields = ['first_name', 'last_name', 'email', 'phone', "address"]
-
-        # widgets = {
-        #     'name': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'description': forms.TextInput(attrs={'class': 'form-control','rows': 5}),
-        #     'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
-        #     'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
-        #     'category': forms.Select(attrs={'class': 'form-control'}),
-        #     'price': forms.NumberInput(attrs={'class': 'form-control'}),
-        #     'status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        # }

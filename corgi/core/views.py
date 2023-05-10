@@ -29,17 +29,6 @@ def userlogout(request):
     logout(request)
     return render(request, "logout.html", {})
 
-# class UserRegisterView(CreateView):
-#     form_class = FormRegistration
-#     template_name = "register.html"
-#     success_url = reverse_lazy("core:profile")
-
-#     def form_valid(self, form):
-#         response = super().form_valid(form)
-#         form.save()
-#         return response
-
-
 def userregister(request):
     form = FormRegistration(request.POST)
     if form.is_valid():
@@ -52,24 +41,6 @@ def userregister(request):
         return redirect(Bhomepage)
     return render(request, "register.html", {'form':form})
 
-#         registered_username = request.POST["username"]
-#         registered_password = request.POST["password1"]
-#         registered_email = request.POST["email"]
-#         registered_firstname = request.POST["first_name"]
-#         registered_lastname = request.POST["last_name"]
-
-#         user = User.objects.create_user(username=registered_username,
-#                                         password=registered_password,
-#                                         first_name=registered_firstname,
-#                                         last_name=registered_lastname,
-#                                         email=registered_email)
-#         user.save()
-#         seller_profile = User.objects.create()
-#         messages.success(request, "Your store has created!")
-#         return redirect('/seller/products') 
-#     else:  
-#         form = FormRegistration()
-#     return render(request, 'Sregister.html', {'form': form })
 
 @login_required
 def userprofile(request):
@@ -101,12 +72,8 @@ def editUser_profile(request):
 def order_status(request):
     userID = request.user.id
     order = CartOrder.objects.filter(customer = userID)
-    # cart = get_object_or_404(Cart,ordernumber = order.order)
-    # print(cart)
-    # cart = Cart.objects.filter()
     print(order)
     context={
         'order': order ,
-        # 'cart': cart ,
             }
     return render(request, "order_status.html", context)

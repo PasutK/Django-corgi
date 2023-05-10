@@ -11,7 +11,6 @@ from django.utils import timezone
 from core.models import User
 from django.views import View
 from decimal import Decimal
-# from .models import CartOrder
 from .models import *
 
 def Bhomepage(request):

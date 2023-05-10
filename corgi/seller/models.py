@@ -59,4 +59,3 @@ class SellerProduct(models.Model):
     
     def __str__(self):
         return f"{self.name}"
-        # return f"product: {self.name} from seller: {self.seller.store_name}"

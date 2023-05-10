@@ -14,7 +14,6 @@ urlpatterns = [
     path('store-profile/', views.store_profile, name='store_profile'),
     path('store-profile/edit-profile/', views.edit_store, name='edit_profile'),
     path('order-status/', views.order_status, name='order_status'),
-    # path('delete-products/', views.delete_products, name='delete_products'),
     path('payment-overview/', views.order_status, name='order_status'),
 ]
 

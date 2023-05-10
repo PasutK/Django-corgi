@@ -44,25 +44,3 @@ class EditProductForm(forms.ModelForm):
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3})
         }
-
-# เพิ่ม/แก้ไข
-# class SellerProduct(forms.ModelForm):
-#     class Meta:
-#         model = SellerProduct
-#         fields = ["name", "price", "category",
-#                   "description", "image", "status",]
-#         widgets = {
-#             "description": forms.Textarea(attrs={"rows":3})
-#         }
-#     name = models.CharField(max_length=100)
-#     image = models.ImageField(upload_to="seller/media/product")
-#     category = models.CharField(max_length=50)
-#     description = models.CharField(max_length=500)
-#     price = models.DecimalField(max_digits=6, decimal_places=2)
-#     status = models.CharField(max_length=20)
-#     seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
-
-# class SellerProductForm(forms.ModelForm):
-#     class Meta:
-#         model = SellerProduct
-#         fields = ['name', 'image', 'category', 'description', 'price', 'status']

@@ -56,12 +56,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <!-- <form method="post">
-                      {% csrf_token %}
-                      <label for="quantity">Quantity:</label>
-                      <input type="number" name="quantity" value="1" min="1">
-                      <button type="submit" class="btn btn-primary">Add to cart</button>
-                    </form> -->
                     <form method="post">
                       {% csrf_token %}
                       {% comment %} {{ form.as_p }} {% endcomment %}
@@ -72,7 +66,6 @@
                       <button type="submit" class="btn btn-primary">Add to cart</button>
                     </form>
                   </br>
-                    <!-- <a class="btn btn-secondary" href="/store/categories">Continue Shopping</a> -->
                   </div>
                 </div>
               </div>

@@ -135,30 +135,6 @@ def edit_product(request, id):
     return render(request, "edit_product.html", context)
 
 @login_required
-# def order_status(request, order_id):
-#     order = get_object_or_404(CartOrder, order=order_id)
-#     customer = order.customer
-#     carts = Cart.objects.filter(customer=customer)
-#     cart_items = []
-#     for cart in carts:
-#         cart_items.append({
-#             'product': cart.product.name,
-#             'quantity': cart.quantity,
-#             'price': cart.price
-#         })
-#     total_cost = order.total_cost
-#     slip = Slip.objects.filter(order=order).last()
-    
-#     return render(request, 'seller/order_status.html', {
-#         'order_id': order_id,
-#         'customer_name': f'{customer.first_name} {customer.last_name}',
-#         'customer_phone': customer.phone,
-#         'customer_email': customer.email,
-#         'cart_items': cart_items,
-#         'total_cost': total_cost,
-#         'slip': slip
-#     })
-
 def order_status(request):
     cust = request.user
     buyer_firstname = cust.first_name
@@ -178,7 +154,6 @@ def order_status(request):
     order = CartOrder.objects.filter(customer_id=user, is_paid=False)
     orderID = order.last()
 
-    # return render(request, 'seller/order_status.html', 
     context = {
         'order_id': orderID.order,
         'buyer_firstname': buyer_firstname,
