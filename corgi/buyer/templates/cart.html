@@ -92,6 +92,13 @@
     td {
   text-align: center;
 }
+.Action{
+            font-size: 16px;
+            font-family: ‘Open Sans’;
+            font-weight: 600;
+            color: #E44C4C;
+            cursor: pointer;
+        }
 
 
       </style>
@@ -120,6 +127,10 @@
                         <td>฿ {{ cart.product.price }}</td>
                         <td>{{ cart.amount }}</td>
                         <td>฿ {{ cart.price }}</td>
+                        <td><div class="Cart-Container">
+                            <div class="Header"><p class="Action">Remove</p></div>
+                        </div></div>
+                    </div><td>
                     </tr>
                 {% endfor %}
             </tbody>
