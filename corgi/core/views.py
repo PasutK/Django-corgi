@@ -29,6 +29,17 @@ def userlogout(request):
     logout(request)
     return render(request, "logout.html", {})
 
+# class UserRegisterView(CreateView):
+#     form_class = FormRegistration
+#     template_name = "register.html"
+#     success_url = reverse_lazy("core:profile")
+
+#     def form_valid(self, form):
+#         response = super().form_valid(form)
+#         form.save()
+#         return response
+
+
 def userregister(request):
     form = FormRegistration(request.POST)
     if form.is_valid():
@@ -41,6 +52,24 @@ def userregister(request):
         return redirect(Bhomepage)
     return render(request, "register.html", {'form':form})
 
+#         registered_username = request.POST["username"]
+#         registered_password = request.POST["password1"]
+#         registered_email = request.POST["email"]
+#         registered_firstname = request.POST["first_name"]
+#         registered_lastname = request.POST["last_name"]
+
+#         user = User.objects.create_user(username=registered_username,
+#                                         password=registered_password,
+#                                         first_name=registered_firstname,
+#                                         last_name=registered_lastname,
+#                                         email=registered_email)
+#         user.save()
+#         seller_profile = User.objects.create()
+#         messages.success(request, "Your store has created!")
+#         return redirect('/seller/products') 
+#     else:  
+#         form = FormRegistration()
+#     return render(request, 'Sregister.html', {'form': form })
 
 @login_required
 def userprofile(request):
@@ -70,10 +99,25 @@ def editUser_profile(request):
 
 @login_required
 def order_status(request):
-    userID = request.user.id
-    order = CartOrder.objects.filter(customer = userID)
+    user = request.user.id
+    carts = Cart.objects.filter(customer=user)
+    cart_items = len(carts)
+    cart_price = []
+    for p in carts:
+        cart_price.append(p.price) 
+    total = sum(cart_price)
+    order = CartOrder.objects.filter(customer_id=user,is_check=False)
+    for p in order:
+        # cart = Cart.objects.filter(ordernumber=p)
+        print(cart)
+
     print(order)
+    if order:
+        order = order
+    else: order = None
     context={
         'order': order ,
+        'cart': carts ,
+        'total_price': total,
             }
-    return render(request, "order_status.html", context)
+    return render(request, "Uorder_status.html", context)
