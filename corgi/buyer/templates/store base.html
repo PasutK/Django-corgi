@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html>
     <meta charset="utf-8">
@@ -105,7 +104,7 @@
                             <div class="carousel-item">
                                 <div class="row">
     
-                                    {% for product in products|slice:"6:9" %}
+                                {% for product in products|slice:"6:9" %}
                                     <div class="col-md-4 mb-3">
                                         <div class="card">
                                             <img class="img-fluid" alt="100%x280" src="{{ product.image.url }}">
@@ -116,7 +115,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {% endfor %}
+                                {% endfor %}
                                 </div>
                             </div>
                         </div>
