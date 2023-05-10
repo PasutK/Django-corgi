@@ -13,8 +13,8 @@ urlpatterns = [
     path('edit-products/<int:id>/', views.edit_product, name='edit_product'),
     path('store-profile/', views.store_profile, name='store_profile'),
     path('store-profile/edit-profile/', views.edit_store, name='edit_profile'),
-    path('order-status/', views.order_status, name='order_status'),
-    path('payment-overview/', views.order_status, name='order_status'),
+    path('order-status/', views.seller_order_status, name='order_status'),
+    path('order-status/<str:orderid>', views.seller_order_status_detail, name='order_status_detail'),
 ]
 
 if settings.DEBUG:

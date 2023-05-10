@@ -15,7 +15,7 @@ class Cart(models.Model):
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     date = models.DateField(default=datetime.datetime.today)
     ordernumber = models.CharField(max_length=10,null=True,default=None)
-    seller_id = models.ForeignKey(Seller,on_delete=models.CASCADE,default=None)
+    seller = models.ForeignKey(Seller,on_delete=models.CASCADE,default=None)
 
 
 # class Order(models.Model):

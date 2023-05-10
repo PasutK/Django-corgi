@@ -136,7 +136,7 @@ def edit_product(request, id):
     return render(request, "edit_product.html", context)
 
 @login_required
-def order_status(request):
+def seller_order_status(request):
     # cust = request.user
     # buyer_firstname = cust.first_name
     # buyer_lastname = cust.last_name
@@ -145,64 +145,66 @@ def order_status(request):
     # slip = Slip.objects.filter 
     # qrcode_image = slip.slip_image
 
-
-
-    seller = request.user.id
     # carts = Cart.objects.filter(seller_id=seller).values('customer', 'product__seller', 'seller_id', 'order__order_number').annotate(total_amount=Sum('amount'), total_price=Sum('price'))
-    carts = Cart.objects.filter(seller_id=seller)
-    cart_items = len(carts)
-    # print(carts.first().product_id)
-    cart_price = []
-    for p in carts:
-        cart_price.append(p.price) 
-    total = sum(cart_price)
-    order = CartOrder.objects.all()
-    order
 
+
+    # seller = request.user.id
+    # carts = Cart.objects.filter(seller_id=seller)
+    # cart_items = len(carts)
+    # # print(carts.first().product_id)
+    # cart_price = []
+    # for p in carts:
+    #     cart_price.append(p.price) 
+    # total = sum(cart_price)
+    # order = CartOrder.objects.all()
+    # order
+    seller_id = request.user.id
+    seller_carts = Cart.objects.filter(seller_id=seller_id)
+    order_ids = [cart.ordernumber for cart in seller_carts]
+    cart_orders = CartOrder.objects.filter(order__in=order_ids)
+    cart_price = []
+    # for p in seller_carts:
+    #     cart_price.append(p.price) 
+    # total = sum(cart_price)
+    print(seller_carts)
+    print(order_ids)
+    # print(total)
+    print(cart_orders.first().order)
     context = {
-        # 'order_id': orderID.order,
+        'order_id': order_ids,
+        # 'total':total,
         # 'buyer_firstname': buyer_firstname,
         # 'buyer_lastname': buyer_lastname,
         # 'buyer_phone': buyer_phone,
         # 'qrcode_image': qrcode_image,
         # 'cart_items': cart_items,
-        'carts' : carts,
-        'total_price': total,
+        'carts' : cart_orders ,
     }
     return render(request, 'order_status.html', context)
 
 @login_required
-def order_status_detail(request):
-    # cust = request.user
-    # buyer_firstname = cust.first_name
-    # buyer_lastname = cust.last_name
-    # buyer_phone = cust.phone
-
-    # slip = Slip.objects.filter 
-    # qrcode_image = slip.slip_image
-
-
-
+def seller_order_status_detail(request,orderid):
     seller = request.user.id
-    # carts = Cart.objects.filter(seller_id=seller).values('customer', 'product__seller', 'seller_id', 'order__order_number').annotate(total_amount=Sum('amount'), total_price=Sum('price'))
-    carts = Cart.objects.filter(seller_id=seller)
+    carts = Cart.objects.filter(seller_id=seller,ordernumber=orderid)
+    order_ids = [cart.ordernumber for cart in carts]
+    cart_orders = CartOrder.objects.filter(order__in=order_ids)
+    print(carts)
     cart_items = len(carts)
-    # print(carts.first())
-    # cart_price = []
+    print(carts.first().product_id)
+    cart_price = []
+    cart_amount = []
     for p in carts:
+        cart_amount.append(p.amount)
         cart_price.append(p.price) 
     total = sum(cart_price)
-    order = CartOrder.objects.all()
-    order
+    amount= sum(cart_amount)
+    print(order_ids)
+    
 
     context = {
-        # 'order_id': orderID.order,
-        # 'buyer_firstname': buyer_firstname,
-        # 'buyer_lastname': buyer_lastname,
-        # 'buyer_phone': buyer_phone,
-        # 'qrcode_image': qrcode_image,
-        # 'cart_items': cart_items,
-        'carts' : carts,
+        'order': orderid,
+        'amount': amount,
+        'carts' : cart_orders,
         'total_price': total,
     }
-    return render(request, 'order_status.html', context)
+    return render(request, 'order_status_detail.html', context)

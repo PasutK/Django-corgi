@@ -64,7 +64,7 @@ def store_detail(request, store_name):
 def cart(request):
     user = request.user.id
     customer = User.objects.get(pk=user)
-    carts = Cart.objects.filter(customer=user)
+    carts = Cart.objects.filter(customer=user,is_paid=False)
     cart_price = []
     cart_id = []
     for p in carts:
@@ -105,7 +105,7 @@ def checkout(request):
     orderID = order.last()
     print(orderID.order)
     print(user.id)
-    carts = Cart.objects.filter(customer=user)
+    carts = Cart.objects.filter(customer=user,is_paid=False)
     cart_price = []
     cart_ID = []
     for p in carts:
