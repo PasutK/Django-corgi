@@ -12,7 +12,7 @@
     <div class="col-md-6 offset-md-3">
       <div class="card">
         <div class="card-body">
-          <h1 class="card-title text-center mb-4">Edit Profile</h1>
+          <h1 class="card-title text-center mb-4" style="color: #ec9410; ">Edit Profile</h1>
           <form method="POST" action="">
             {% csrf_token %}
             <div class="form-group mb-3">
@@ -36,7 +36,7 @@
               {{ cust.address }}
             </div> 
             <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary">Make Change</button>
+              <button type="submit" class="btn btn-primary" style="background-color:  #f8bc63; border:  #f8bc63;">Make Change</button>
               <input type="hidden" name="previous_url" value="{{ request.META.HTTP_REFERER }}">
             </div>
           </form>
